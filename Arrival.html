@@ -2,25 +2,31 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <!-- 還原為行動端標準 Viewport，確保所有手機瀏覽器皆能觸發原生的自由滑動與拖曳機制 -->
+    <!-- 標準 Viewport 設定，配合外層固定寬度，完美觸發全頁面（Page）水平原生滑動與雙指縮放 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>入境航班及交通安排</title>
     <style>
-        /* 頁面全域設定 */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+        /* 頁面全域設定：解鎖全網頁水平與垂直的原生流暢滑動 */
+        html, body {
             margin: 0;
-            padding: 20px 0; /* 上下保留 20px 內距，左右留白交由容器控制 */
+            padding: 0;
             background-color: #ffffff;
-            -webkit-overflow-scrolling: touch; /* 確保 iOS 裝置滑動極度順暢 */
+            -webkit-overflow-scrolling: touch; /* 確保 iOS 全頁面滑動極度順暢 */
         }
 
-        /* 網頁主容器：自適應螢幕，並提供左右兩側的固定緩衝空白 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            display: flex;
+            justify-content: center; /* 電腦大螢幕時保持置中 */
+        }
+
+        /* 關鍵修改：將固定總寬度鎖在最外層主容器，強制整個 Page 成為一個 820px 的一體化畫布 */
         .container {
-            width: 100%;
-            max-width: 100%;
+            width: 820px; 
+            min-width: 820px;
+            max-width: none;
             box-sizing: border-box;
-            padding: 0 20px; /* 這裡控制標題與內容在手機上的左右兩側留白，不頂到邊 */
+            padding: 20px 40px; /* 在這個 820px 畫布內，上下留 20px，左右各留 40px 固定的視覺空白 */
         }
 
         /* 大標題樣式 */
@@ -41,27 +47,14 @@
             text-align: left;
         }
 
-        /* 關鍵修改：響應式滾動包覆層，強制解鎖手機上的左右滑動與自由拖曳功能 */
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto; /* 當表格寬度大於螢幕時，自動啟用流暢的左右滑動 */
-            display: block;
-            margin-bottom: 30px;
-            /* 隱藏滾動條（可選），保持畫面乾淨，但保留滑動功能 */
-            scrollbar-width: none; /* Firefox */
-        }
-        .table-wrapper::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-
         /* 表格基本樣式：欄位完全固定，絕對不隨螢幕大小變形 */
         table {
             border-collapse: collapse;
+            margin-bottom: 30px;
             font-size: 16px;
             background-color: #FFF2CC; /* 表格內底色 */
             width: 740px;              /* 嚴格鎖定表格總寬度 */
             table-layout: fixed;       /* 強制瀏覽器遵守硬性欄寬設定 */
-            margin: 0;
         }
 
         /* 儲存格邊框與內距 */
@@ -70,7 +63,7 @@
             padding: 8px 12px;
             height: 24px;
             vertical-align: middle;
-            word-wrap: break-word;     /* 文字過長時在 740px 結構內自動換行 */
+            word-wrap: break-word;     /* 文字過長時在結構內自動換行 */
             overflow: hidden;
         }
 
@@ -97,118 +90,109 @@
         <div class="title">入境航班及交通安排</div>
 
         <div class="date-header">7/17 (五)</div>
-        <!-- 套入滾動包覆層 -->
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 100px;">去程航班</th>
-                        <th style="width: 100px;">抵達時間</th>
-                        <th style="width: 60px;">合計</th>
-                        <th style="width: 320px;">搭接駁車</th>
-                        <th style="width: 160px;">不搭接駁車</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center">BR225</td>
-                        <td class="text-center">11:55</td>
-                        <td class="text-center">1</td>
-                        <td></td>
-                        <td class="text-left">郭天立</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 100px;">去程航班</th>
+                    <th style="width: 100px;">抵達時間</th>
+                    <th style="width: 60px;">合計</th>
+                    <th style="width: 320px;">搭接駁車</th>
+                    <th style="width: 160px;">不搭接駁車</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">BR225</td>
+                    <td class="text-center">11:55</td>
+                    <td class="text-center">1</td>
+                    <td></td>
+                    <td class="text-left">郭天立</td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="date-header">7/18 (六)</div>
-        <!-- 套入滾動包覆層 -->
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 100px;">去程航班</th>
-                        <th style="width: 100px;">抵達時間</th>
-                        <th style="width: 60px;">合計</th>
-                        <th style="width: 320px;">搭接駁車</th>
-                        <th style="width: 160px;">不搭接駁車</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center" rowspan="2">BR215</td>
-                        <td class="text-center" rowspan="2">13:55</td>
-                        <td class="text-center" rowspan="2">8</td>
-                        <td class="text-left">章廣榮、張肇驛、吳懿展、胡書瑋</td>
-                        <td rowspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">姜玫君、簡雅惠、陳玠錳、門志漢</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">CI-753</td>
-                        <td class="text-center">12:35</td>
-                        <td class="text-center">6</td>
-                        <td class="text-left">鍾曜宇一家人 (4人), 17:00接</td>
-                        <td class="text-left">曾世翰、施元中</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">SQ827</td>
-                        <td class="text-center">13:25</td>
-                        <td class="text-center">2</td>
-                        <td class="text-left">陳俊安、郭靜萍</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 100px;">去程航班</th>
+                    <th style="width: 100px;">抵達時間</th>
+                    <th style="width: 60px;">合計</th>
+                    <th style="width: 320px;">搭接駁車</th>
+                    <th style="width: 160px;">不搭接駁車</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center" rowspan="2">BR215</td>
+                    <td class="text-center" rowspan="2">13:55</td>
+                    <td class="text-center" rowspan="2">8</td>
+                    <td class="text-left">章廣榮、張肇驛、吳懿展、胡書瑋</td>
+                    <td rowspan="2"></td>
+                </tr>
+                <tr>
+                    <td class="text-left">姜玫君、簡雅惠、陳玠錳、門志漢</td>
+                </tr>
+                <tr>
+                    <td class="text-center">CI-753</td>
+                    <td class="text-center">12:35</td>
+                    <td class="text-center">6</td>
+                    <td class="text-left">鍾曜宇一家人 (4人), 17:00接</td>
+                    <td class="text-left">曾世翰、施元中</td>
+                </tr>
+                <tr>
+                    <td class="text-center">SQ827</td>
+                    <td class="text-center">13:25</td>
+                    <td class="text-center">2</td>
+                    <td class="text-left">陳俊安、郭靜萍</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="date-header">7/19 (日)</div>
-        <!-- 套入滾動包覆層 -->
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 100px;">去程航班</th>
-                        <th style="width: 100px;">抵達時間</th>
-                        <th style="width: 60px;">合計</th>
-                        <th style="width: 320px;">搭接駁車</th>
-                        <th style="width: 160px;">不搭接駁車</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center">CI-753</td>
-                        <td class="text-center">12:35</td>
-                        <td class="text-center">1</td>
-                        <td class="text-left" rowspan="2">
-                            廖聰志<br><br>葉錦徽、高長翰
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">BR215</td>
-                        <td class="text-center">13:55</td>
-                        <td class="text-center">2</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">SQ827</td>
-                        <td class="text-center">13:25</td>
-                        <td class="text-center">1</td>
-                        <td></td>
-                        <td class="text-left">鄭竣升</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">SQ879</td>
-                        <td class="text-center">22:15</td>
-                        <td class="text-center">1</td>
-                        <td></td>
-                        <td class="text-left">沈建文</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 100px;">去程航班</th>
+                    <th style="width: 100px;">抵達時間</th>
+                    <th style="width: 60px;">合計</th>
+                    <th style="width: 320px;">搭接駁車</th>
+                    <th style="width: 160px;">不搭接駁車</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">CI-753</td>
+                    <td class="text-center">12:35</td>
+                    <td class="text-center">1</td>
+                    <td class="text-left" rowspan="2">
+                        廖聰志<br><br>葉錦徽、高長翰
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="text-center">BR215</td>
+                    <td class="text-center">13:55</td>
+                    <td class="text-center">2</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="text-center">SQ827</td>
+                    <td class="text-center">13:25</td>
+                    <td class="text-center">1</td>
+                    <td></td>
+                    <td class="text-left">鄭竣升</td>
+                </tr>
+                <tr>
+                    <td class="text-center">SQ879</td>
+                    <td class="text-center">22:15</td>
+                    <td class="text-center">1</td>
+                    <td></td>
+                    <td class="text-left">沈建文</td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
 
