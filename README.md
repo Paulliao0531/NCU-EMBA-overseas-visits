@@ -1,2 +1,2 @@
-# NCU-EMBA-overseas-visits
+# 2026 NCU EMBA 星泰團
 2026 星泰團海外參訪
