@@ -11,11 +11,11 @@
         margin: 0;
         padding: 15px;
         }
-        /* 響應式外殼：確保手機上可水平滑動不破版，且整體水平置中 */
+        /* 響應式外殼：確保整體水平置中，並移除橫向捲軸 */
         .table-container {
             width: 100%;
             max-width: 1200px;
-            overflow-x: auto;
+            overflow-x: hidden; /* 已將 auto 改為 hidden，移除橫向捲軸 */
             background: #ffffff;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border-radius: 8px;
