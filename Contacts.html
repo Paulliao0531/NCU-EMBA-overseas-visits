@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <!-- 確保手機支援縮放與手勢平移 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>通訊錄名單</title>
     <style>
@@ -10,66 +11,72 @@
         background-color: #f8f9fa;
         margin: 0;
         padding: 15px;
-        }
-        /* 響應式外殼：確保整體水平置中，並移除橫向捲軸 */
-        .table-container {
-            width: 100%;
-            max-width: 1800px;
-            overflow-x: hidden; /* 已將 auto 改為 hidden，移除橫向捲軸 */
-            background: #ffffff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            margin: 0 auto;
-        }
+        /* 允許整個網頁內容撐開，不強制限制在螢幕寬度內 */
+        display: inline-block; 
+        min-width: 100%;
+    }
+    
+    /* 移除所有隱藏與捲軸設定，讓容器寬度完全由表格寬度決定 */
+    .table-container {
+        display: block;
+        background: #ffffff;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin: 0 auto;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            white-space: nowrap; /* 避免手機上文字過度折行 */
-            font-size: 14px;
-        }
+    table {
+        /* 移除 width: 100%，改由內容自動撐開真實寬度 */
+        border-collapse: collapse;
+        white-space: nowrap; /* 保持文字不折行，撐開表格 */
+        font-size: 14px;
+    }
 
-        th, td {
-            border: 1px solid #bdc3c7;
-            padding: 10px 12px;
-            vertical-align: middle;
-        }
+    th, td {
+        border: 1px solid #bdc3c7;
+        padding: 10px 12px;
+        vertical-align: middle;
+    }
 
-        /* 標題列顏色與原圖相符 */
-        th {
-            background-color: #e8f4f8;
-            color: #333;
-            font-weight: bold;
-            text-align: center;
-        }
+    /* 標題列顏色與原圖相符 */
+    th {
+        background-color: #e8f4f8;
+        color: #333;
+        font-weight: bold;
+        text-align: center;
+    }
 
-        /* 職務/組別主分類欄位背景色 (深藍、淺藍、淺黃、淺綠) */
-        .bg-darkblue { background-color: #3a75c4; color: white; font-weight: bold; text-align: center; }
-        .bg-lightblue { background-color: #5b9bd5; color: white; font-weight: bold; text-align: center; }
-        .bg-yellow { background-color: #fff2cc; color: #7f6000; font-weight: bold; text-align: center; }
-        .bg-green { background-color: #e2efda; color: #375623; font-weight: bold; text-align: center; }
-        .bg-gray { background-color: #f2f2f2; font-weight: bold; text-align: center; }
+    /* 職務/組別主分類欄位背景色 (深藍、淺藍、淺黃、淺綠、灰) */
+    .bg-darkblue { background-color: #3a75c4; color: white; font-weight: bold; text-align: center; }
+    .bg-lightblue { background-color: #5b9bd5; color: white; font-weight: bold; text-align: center; }
+    .bg-yellow { background-color: #fff2cc; color: #7f6000; font-weight: bold; text-align: center; }
+    .bg-green { background-color: #e2efda; color: #375623; font-weight: bold; text-align: center; }
+    .bg-gray { background-color: #f2f2f2; font-weight: bold; text-align: center; }
 
-        /* 保留原圖的對齊方式 */
-        .text-center { text-align: center; }
-        .text-left { text-align: left; }
+    /* 保留原圖的對齊方式 */
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
 
-        /* 手機滑動提示（選填，優化體驗） */
-        .scroll-tip {
-            text-align: center;
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-bottom: 8px;
-        }
-        @media (min-width: 769px) {
-            .scroll-tip { display: none; }
-        }
+    /* 手機滑動提示 */
+    .scroll-tip {
+        text-align: center;
+        font-size: 13px;
+        color: #2c3e50;
+        background-color: #e1f5fe;
+        padding: 8px;
+        border-radius: 4px;
+        margin-bottom: 12px;
+        font-weight: bold;
+    }
+    @media (min-width: 1025px) {
+        .scroll-tip { display: none; }
+    }
     </style>
 </head>
 <body>
 
 <div>
-    <div class="scroll-tip">💡 螢幕較窄時，可左右滑動查看完整表格。支援雙指縮放。</div>
+    <div class="scroll-tip">💡 提示：本表格支援雙指縮放，您可以直接用手指拖曳整個頁面瀏覽完整內容。</div>
     <div class="table-container">
         <table>
             <thead>
