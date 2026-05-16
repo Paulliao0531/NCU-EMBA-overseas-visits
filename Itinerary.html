@@ -2,86 +2,85 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.1, maximum-scale=10.0, user-scalable=yes">
-    <title>新加坡與曼谷參訪行程表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>行程表 Itinerary</title>
     <style>
-        :root {
-            --primary-orange: #FF9900;
-            --bg-green: #E2EFDA;
-            --bg-blue: #DDEBF7;
-            --border-color: #A6A6A6;
-            --text-color: #000000;
-        }
-
-        /* 核心置中與底色設定 */
+        /* 基礎樣式與全螢幕置中 */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-            background-color: #FAFAFA;
+            font-family: "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9f9f9;
             margin: 0;
-            padding: 20px 10px;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
-        /* 表格容器：負責響應式寬度與水平置中 */
+        /* 響應式外層容器：確保手機版可以橫向捲動與縮放 */
         .table-container {
             width: 100%;
-            max-width: 1800px;
-            margin: 0 auto;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            border-radius: 4px;
-            overflow: hidden;
+            max-width: 1200px;
             overflow-x: auto;
-            background: #FFFFFF;
-            -webkit-overflow-scrolling: touch;
+            background: #ffffff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 4px;
         }
 
+        /* 表格主體樣式 */
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14;
-            color: var(--text-color);
-            line-height: 1.4;
-            min-width: 850;
+            min-width: 800px; /* 保證手機版不會擠壓變形，可透過滑動閱讀 */
+            font-size: 14px;
         }
 
         th, td {
-            border: 1 solid var(--border-color);
-            padding: 10px 12px;
-            text-align: left;
+            border: 1px solid #ccc;
+            padding: 12px 10px;
             vertical-align: middle;
+            text-align: center; /* 預設全部置中 */
         }
 
-        /* 表頭樣式 */
-        thead th {
-            background-color: var(--primary-orange);
-            color: #FFFFFF;
+        /* 標頭顏色設定（預設全部置中） */
+        th {
+            background-color: #ff9900;
+            color: white;
             font-weight: bold;
-            font-size: 16px;
-            text-align: center;
-            border-bottom: 2px solid var(--border-color);
-            white-space: nowrap;
+            font-size: 15px;
+            text-align: center; /* 確保 Activity 與 Address 標題皆置中 */
         }
 
-        /* 欄位寬度分配 */
-        th:nth-child(1), td:nth-child(1) { width: 10%; text-align: center; font-weight: bold; }
-        th:nth-child(2), td:nth-child(2) { width: 12%; text-align: center; }
-        th:nth-child(3), td:nth-child(3) { width: 43%; }
-        th:nth-child(4), td:nth-child(4) { width: 35%; }
+        /* 依據圖片的特定背景顏色分類 */
+        .bg-green { background-color: #f2f9f2; }
+        .bg-blue { background-color: #e6f2ff; }
+        .bg-yellow { background-color: #fff2cc; }
+        .bg-white { background-color: #ffffff; }
 
-        /* 區塊顏色 */
-        .row-green { background-color: var(--bg-green); }
-        .row-blue { background-color: var(--bg-blue); }
+        /* Activity 欄位內容全部靠左對齊 */
+        td.activity-content {
+            text-align: left;
+            line-height: 1.5;
+        }
 
-        /* 超連結 */
+        /* 超連結樣式 */
         a {
-            color: #0563C1;
+            color: #0066cc;
             text-decoration: underline;
         }
         a:hover {
-            color: #002060;
+            color: #003366;
         }
+
+        /* 調整日期與時間欄位的寬度 */
+        .col-date { width: 10%; font-weight: bold; }
+        .col-time { width: 12%; font-weight: bold; }
+        .col-activity { width: 43%; }
+        
+        /* Address 欄位設定：標頭已置中，僅內容（td）靠左對齊 */
+        .col-address { width: 35%; }
+        td.address-content { text-align: left; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -90,111 +89,128 @@
     <table>
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Activity</th>
-                <th>Address</th>
-            </tr>
+                <th class="col-date">Date</th>
+                <th class="col-time">Time</th>
+                <th class="col-activity">Activity</th>
+                <th class="col-address">Address</th> </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>7/19 (Sun)</td>
+            <tr class="bg-white">
+                <td class="col-date">7/19 (Sun)</td>
                 <td></td>
-                <td>Arrive in Singapore and check in</td>
-                <td></td>
-            </tr>
-            
-            <tr class="row-green">
-                <td rowspan="3">7/20 (Mon)</td>
-                <td><strong>AM</strong></td>
-                <td>NUS 新加坡國立大學Asia, Institute of Digital Finance</td>
-                <td>3 Research Link, #04-03, Singapore 117602</td>
-            </tr>
-            <tr class="row-green">
-                <td>PM</td>
-                <td>HSBC 私人銀行與家族辦公室</td>
-                <td>10 Marina Boulevard #50-01 Marina Bay Financial Centre Tower 2 Singapore 018983</td>
-            </tr>
-            <tr class="row-blue">
-                <td>Dinner</td>
-                <td>與參訪對象餐敘 (餐標 35 SGD)</td>
-                <td></td>
+                <td class="activity-content">Arrive in Singapore and check in</td>
+                <td class="address-content"></td>
             </tr>
 
-            <tr class="row-green">
-                <td rowspan="3">7/21 (Tue)</td>
-                <td><strong>AM</strong></td>
-                <td>DBS 總部參訪，數位轉型與AI 賦能的金融創新</td>
-                <td>12 Marina Boulevard, Tower 3, Marina Bay Financial Centre, Singapore 018982</td>
+            <tr class="bg-green">
+                <td class="col-date" rowspan="3">7/20 (Mon)</td>
+                <td class="col-time">AM</td>
+                <td class="activity-content">NUS 新加坡國立大學 Asia, Institute of Digital Finance</td>
+                <td class="address-content">3 Research Link, #04-03, Singapore 117602</td>
             </tr>
-            <tr class="row-green">
-                <td>PM</td>
-                <td>Hyundai Motor Group Innovation Center Singapore (HMGICS)</td>
-                <td>2 Bulim Link, Singapore 649674</td>
+            <tr class="bg-green">
+                <td class="col-time">PM</td>
+                <td class="activity-content">HSBC 私人銀行與家族辦公室</td>
+                <td class="address-content">10 Marina Boulevard #50-01 Marina Bay Financial Centre Tower 2 Singapore 018983</td>
             </tr>
-            <tr class="row-blue">
-                <td>Dinner</td>
-                <td>宏仁堂養生風味晚餐(餐標 35 SGD)</td>
-                <td></td>
-            </tr>
-
-            <tr class="row-blue">
-                <td rowspan="3">7/22 (Wed)</td>
-                <td><strong>AM</strong></td>
-                <td>NUS專題演講、交流&rarr;搭乘TG414 1555/1715 新加坡/曼谷</td>
-                <td></td>
-            </tr>
-            <tr class="row-blue">
-                <td>PM</td>
-                <td>Arrive in Bangkok and Hotel check-in</td>
-                <td></td>
-            </tr>
-            <tr class="row-blue">
-                <td>Dinner</td>
-                <td>THE BEACH (餐標 500 THB)</td>
-                <td></td>
+            <tr class="bg-blue">
+                <td class="col-time">Dinner</td>
+                <td class="activity-content">與參訪對象餐敘 (餐標 35 SGD)</td>
+                <td class="address-content"></td>
             </tr>
 
-            <tr class="row-blue">
-                <td rowspan="4">7/23 (Thu)</td>
-                <td style="background-color: #FFF2CC;"><strong>AM</strong></td>
-                <td>Kasikorn Business-Technology Group (KBTG)<br><a href="https://www.kbtg.tech/en/about-kbtg" target="_blank">https://www.kbtg.tech/en/about-kbtg</a></td>
-                <td>46/6 Popular Rd, Ban Mai, Pak Kret District, Nonthaburi 11120</td>
+            <tr class="bg-green">
+                <td class="col-date" rowspan="3">7/21 (Tue)</td>
+                <td class="col-time">AM</td>
+                <td class="activity-content">DBS 總部參訪，數位轉型與 AI 賦能的金融創新</td>
+                <td class="address-content">12 Marina Boulevard, Tower 3, Marina Bay Financial Centre, Singapore 018982</td>
             </tr>
-            <tr>
-                <td>13:00-15:00</td>
-                <td>True Digital Park (<a href="https://www.truedigitalpark.com/en/" target="_blank">https://www.truedigitalpark.com/en/</a>)</td>
-                <td>101 Sukhumvit Rd, Bang Chak, Phra Khanong, Bangkok 10260, Thailand</td>
+            <tr class="bg-green">
+                <td class="col-time">PM</td>
+                <td class="activity-content">Hyundai Motor Group Innovation Center Singapore (HMGICS)</td>
+                <td class="address-content">2 Bulim Link, Singapore 649674</td>
             </tr>
-            <tr class="row-green">
-                <td>16:00-17:30</td>
-                <td>Srinakharinwirot University 商學院（中大姊妹校）交流</td>
-                <td>114 Soi Sukhumvit 23, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand</td>
-            </tr>
-            <tr class="row-blue">
-                <td>Dinner</td>
-                <td>SAVOEY 上味泰(餐標 800 THB) ，與參訪對象餐敘</td>
-                <td></td>
+            <tr class="bg-blue">
+                <td class="col-time">Dinner</td>
+                <td class="activity-content">宏仁堂養生風味晚餐 (餐標 35 SGD)</td>
+                <td class="address-content"></td>
             </tr>
 
-            <tr class="row-green">
-                <td rowspan="4">7/24 (Fri)</td>
-                <td><strong>AM</strong></td>
-                <td>National Innovation Agency（泰國國家創新局）交流</td>
-                <td>73/2 Rama VI Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand</td>
+            <tr class="bg-blue">
+                <td class="col-date" rowspan="3">7/22 (Wed)</td>
+                <td class="col-time">AM</td>
+                <td class="activity-content">NUS 專題演講、交流 &rarr; 搭乘 TG414 1555/1715 新加坡/曼谷</td>
+                <td class="address-content"></td>
             </tr>
-            <tr class="row-green">
-                <td>PM</td>
-                <td>Asia Sermkij Leasing Public Company Limited</td>
-                <td>129 JLK Tower Fl 20 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand</td>
+            <tr class="bg-blue">
+                <td class="col-time">PM</td>
+                <td class="activity-content">Arrive in Bangkok and Hotel check-in</td>
+                <td class="address-content"></td>
             </tr>
-            <tr class="row-green">
-                <td>14:00-16:30</td>
-                <td>Bangkok Grand Pacific Lease Public Company Limited</td>
-                <td>อาคารเจแอลเค ทาวเวอร์ ชั้น 18, เลขที่ 129 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand</td>
+            <tr class="bg-blue">
+                <td class="col-time">Dinner</td>
+                <td class="activity-content">THE BEACH (餐標 500 THB)</td>
+                <td class="address-content"></td>
             </tr>
-            <tr class="row-blue">
-                <td>Dinner</td>
-                <td>SO自助餐或富裕號夜遊湄南(餐標 1200 THB)</td>
+
+            <tr class="bg-yellow">
+                <td class="col-date" rowspan="4">7/23 (Thu)</td>
+                <td class="col-time">AM</td>
+                <td class="activity-content">
+                    Kasikorn Business-Technology Group (KBTG)<br>
+                    <a href="https://www.kbtg.tech/en/about-kbtg" target="_blank">https://www.kbtg.tech/en/about-kbtg</a>
+                </td>
+                <td class="address-content">46/6 Popular Rd, Ban Mai, Pak Kret District, Nonthaburi 11120</td>
+            </tr>
+            <tr class="bg-white">
+                <td class="col-time">13:00-15:00</td>
+                <td class="activity-content">
+                    True Digital Park (<a href="https://www.truedigitalpark.com/en/" target="_blank">https://www.truedigitalpark.com/en/</a>)
+                </td>
+                <td class="address-content">101 Sukhumvit Rd, Bang Chak, Phra Khanong, Bangkok 10260, Thailand</td>
+            </tr>
+            <tr class="bg-white">
+                <td class="col-time">16:00-17:30</td>
+                <td class="activity-content">Srinakharinwirot University 商學院（中大姊妹校）交流</td>
+                <td class="address-content">114 Soi Sukhumvit 23, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand</td>
+            </tr>
+            <tr class="bg-blue">
+                <td class="col-time">Dinner</td>
+                <td class="activity-content">SAVOEY 上味泰 (餐標 800 THB)，與參訪對象餐敘</td>
+                <td class="address-content"></td>
+            </tr>
+
+            <tr class="bg-green">
+                <td class="col-date" rowspan="4">7/24 (Fri)</td>
+                <td class="col-time">AM</td>
+                <td class="activity-content">National Innovation Agency（泰國國家創新局）交流</td>
+                <td class="address-content">73/2 Rama VI Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand</td>
+            </tr>
+            <tr class="bg-green">
+                <td class="col-time">PM</td>
+                <td class="activity-content">Asia Sermkij Leasing Public Company Limited</td>
+                <td class="address-content">129 JLK Tower Fl 20 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand</td>
+            </tr>
+            <tr class="bg-green">
+                <td class="col-time">14:00-16:30</td>
+                <td class="activity-content">Bangkok Grand Pacific Lease Public Company Limited</td>
+                <td class="address-content">อาคารเจแอลเค ทาวเวอร์ ชั้น 18, เลขที่ 129 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand</td>
+            </tr>
+            <tr class="bg-blue">
+                <td class="col-time">Dinner</td>
+                <td class="activity-content">SO自助餐或昭披耶夜遊湄南 (餐標 1200 THB)</td>
+                <td class="address-content"></td>
+            </tr>
+
+            <tr class="bg-white">
+                <td class="col-date">7/25 (Sat)</td>
                 <td></td>
+                <td class="activity-content">TBD</td>
+                <td class="address-content"></td>
             </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
