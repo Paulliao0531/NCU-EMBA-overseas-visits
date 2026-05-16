@@ -6,17 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>通訊錄名單</title>
     <style>
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-        background-color: #f8f9fa;
+    html, body {
         margin: 0;
-        padding: 15px;
-        /* 允許整個網頁內容撐開，不強制限制在螢幕寬度內 */
-        display: inline-block; 
-        min-width: 100%;
+        padding: 0;
+        background-color: #f8f9fa;
     }
     
-    /* 移除所有隱藏與捲軸設定，讓容器寬度完全由表格寬度決定 */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+        padding: 15px;
+        /* 使用 inline-flex 確保 body 寬度完美包裹內部超大表格，並水平居中 */
+        display: inline-flex; 
+        flex-direction: column;
+        align-items: center;
+        min-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* 確保容器在外層 flex 下維持正常區塊顯示 */
     .table-container {
         display: block;
         background: #ffffff;
@@ -26,7 +33,6 @@
     }
 
     table {
-        /* 移除 width: 100%，改由內容自動撐開真實寬度 */
         border-collapse: collapse;
         white-space: nowrap; /* 保持文字不折行，撐開表格 */
         font-size: 14px;
@@ -38,12 +44,12 @@
         vertical-align: middle;
     }
 
-    /* 標題列顏色與原圖相符 */
+    /* 標題列顏色 */
     th {
         background-color: #e8f4f8;
         color: #333;
         font-weight: bold;
-        text-align: center;
+        text-align: center; /* 欄位標題維持置中 */
     }
 
     /* 職務/組別主分類欄位背景色 (深藍、淺藍、淺黃、淺綠、灰) */
@@ -53,7 +59,7 @@
     .bg-green { background-color: #e2efda; color: #375623; font-weight: bold; text-align: center; }
     .bg-gray { background-color: #f2f2f2; font-weight: bold; text-align: center; }
 
-    /* 保留原圖的對齊方式 */
+    /* 原有文字對齊級別定義（保持不變） */
     .text-center { text-align: center; }
     .text-left { text-align: left; }
 
@@ -63,10 +69,11 @@
         font-size: 13px;
         color: #2c3e50;
         background-color: #e1f5fe;
-        padding: 8px;
+        padding: 8px 20px;
         border-radius: 4px;
         margin-bottom: 12px;
         font-weight: bold;
+        width: fit-content;
     }
     @media (min-width: 1025px) {
         .scroll-tip { display: none; }
@@ -75,8 +82,8 @@
 </head>
 <body>
 
-<div>
-    <div class="scroll-tip">💡 提示：本表格支援雙指縮放，您可以直接用手指拖曳整個頁面瀏覽完整內容。</div>
+    <div class="scroll-tip">💡 提示：已自動為您置中畫面。您可以直接左右拖曳頁面或雙指縮放檢視。</div>
+    
     <div class="table-container">
         <table>
             <thead>
@@ -227,6 +234,7 @@
                 <tr>
                     <td class="text-center">施元中</td>
                     <td class="text-left">Shih, Yuan-Chung</td>
+                    <td class="text-left">Shih, Yuan-Chung</td>
                     <td class="text-left">Lihsing Co., Ltd.</td>
                     <td class="text-left">Vice President</td>
                     <td class="text-center"></td>
@@ -246,7 +254,19 @@
             </tbody>
         </table>
     </div>
-</div>
 
+    <!-- 自動將大網頁的水平視角定位在正中央的指令 -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                // 計算網頁總寬度與螢幕可見寬度的差值，除以 2 即為正中央點
+                const scrollLeftPosition = (document.documentElement.scrollWidth - window.innerWidth) / 2;
+                window.scrollTo({
+                    left: scrollLeftPosition,
+                    behavior: 'auto' // 使用立即定位，避免載入時畫面閃爍移動
+                });
+            }, 50); // 微調延遲確保行動裝置瀏覽器已完成初步佈局計算
+        });
+    </script>
 </body>
 </html>
