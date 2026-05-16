@@ -2,269 +2,244 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <!-- 核心修改：加入 minimum-scale=0.2，允許雙指縮得比預設更小（縮小極限放寬至 20%） -->
-    <meta name="viewport" content="width=device-width, initial-scale=0.6, minimum-scale=0.2, user-scalable=yes">
-    <title>通訊錄名單</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, user-scalable=yes">
+    <title>離境航班及交通安排</title>
     <style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        background-color: #f8f9fa;
-    }
-    
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-        padding: 15px;
-        /* 使用 inline-flex 確保 body 寬度完美包裹內部超大表格，並水平居中 */
-        display: inline-flex; 
-        flex-direction: column;
-        align-items: center;
-        min-width: 100%;
-        box-sizing: border-box;
-    }
-    
-    /* 確保容器在外層 flex 下維持正常區塊顯示 */
-    .table-container {
-        display: block;
-        background: #ffffff;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        margin: 0 auto;
-    }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: #f5f5f5; /* 輕微淡灰底色，更加凸顯置中容器 */
+            display: block;
+        }
 
-    table {
-        border-collapse: collapse;
-        white-space: nowrap; /* 保持文字不折行，撐開表格 */
-        font-size: 14px;
-    }
+        /* 整個頁面為一個獨立容器，畫面水平置中，相對位置不變，大小依原尺寸不佔滿整個螢幕 */
+        .page-container {
+            margin: 0 auto;
+            width: fit-content;
+            max-width: 100%;
+            background-color: #ffffff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow-x: auto; /* 在極小手機螢幕下提供安全水平捲動，保護網頁元件不跑位 */
+            -webkit-overflow-scrolling: touch;
+        }
 
-    th, td {
-        border: 1px solid #bdc3c7;
-        padding: 10px 12px;
-        vertical-align: middle;
-    }
+        h1 {
+            font-size: 20pt;
+            color: #2e5c1e;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-align: left;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
-    /* 標題列顏色 */
-    th {
-        background-color: #e8f4f8;
-        color: #333;
-        font-weight: bold;
-        text-align: center; /* 欄位標題維持置中 */
-    }
+        .date-section {
+            margin-bottom: 30px;
+        }
 
-    /* 職務/組別主分類欄位背景色 (深藍、淺藍、淺黃、淺綠、灰) */
-    .bg-darkblue { background-color: #3a75c4; color: white; font-weight: bold; text-align: center; }
-    .bg-lightblue { background-color: #5b9bd5; color: white; font-weight: bold; text-align: center; }
-    .bg-yellow { background-color: #fff2cc; color: #7f6000; font-weight: bold; text-align: center; }
-    .bg-green { background-color: #e2efda; color: #375623; font-weight: bold; text-align: center; }
-    .bg-gray { background-color: #f2f2f2; font-weight: bold; text-align: center; }
+        .date-section:last-child {
+            margin-bottom: 0;
+        }
 
-    /* 原有文字對齊級別定義（保持不變） */
-    .text-center { text-align: center; }
-    .text-left { text-align: left; }
+        .date-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 8px;
+            text-align: left;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 3px;
+            width: fit-content;
+            min-width: 70px;
+        }
 
-    /* 手機滑動提示 */
-    .scroll-tip {
-        text-align: center;
-        font-size: 13px;
-        color: #2c3e50;
-        background-color: #e1f5fe;
-        padding: 8px 20px;
-        border-radius: 4px;
-        margin-bottom: 12px;
-        font-weight: bold;
-        width: fit-content;
-    }
-    @media (min-width: 1025px) {
-        .scroll-tip { display: none; }
-    }
+        table {
+            border-collapse: collapse;
+            width: auto; /* 依原尺寸不佔滿螢幕 */
+            min-width: 650px; /* 確保表格保持原圖的寬度與可讀性 */
+            border: 1px solid #000000;
+            font-size: 11pt;
+        }
+
+        th {
+            background-color: #76cb67;
+            color: #000000;
+            font-weight: normal;
+            border: 1px solid #000000;
+            padding: 8px 10px;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #000000;
+            padding: 8px 12px;
+            vertical-align: middle;
+            background-color: #e2efda; /* 經典淺綠底色 */
+            color: #000000;
+        }
+
+        /* 精確保留原表格內部對齊方式 */
+        .align-center {
+            text-align: center;
+        }
+
+        .align-left {
+            text-align: left;
+            white-space: pre-line; /* 支援旅客名單內換行 */
+            line-height: 1.4;
+        }
+
+        /* 💡 消除特定單元格之間水平分隔線的特殊設定 */
+        .no-border-bottom {
+            border-bottom: none !important;
+        }
+        .no-border-top {
+            border-top: none !important;
+        }
+
+        /* 8/2 異常班機特殊粉紅高亮 */
+        .highlight-pink {
+            background-color: #ff99ff;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-    <div class="scroll-tip">💡 提示：本頁面支援超大幅度雙指縮小，您可以捏合螢幕以檢視完整表格。</div>
-    
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>組別</th>
-                    <th>姓名</th>
-                    <th>姓名 (護照英文+常用英文名)</th>
-                    <th>公司 (英文)</th>
-                    <th>職稱 (英文)</th>
-                    <th>角色</th>
-                    <th>手機</th>
-                    <th>email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="bg-darkblue">專案執行長 (1位)</td>
-                    <td class="text-center">姜玫君</td>
-                    <td class="text-left">Chiang Mei Chun(Coco)</td>
-                    <td class="text-left">Legrand<br>Power and Access Data Power&Dontrol</td>
-                    <td class="text-left">Financial Controller, APAC</td>
-                    <td class="text-center">執行長</td>
-                    <td class="text-center">0922792885</td>
-                    <td class="text-left">114E.Coco.Chiang@emba.ncu.edu.tw<br>Coco.chiang@legrand.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-lightblue">副執行長 (1位)</td>
-                    <td class="text-center">廖聰志</td>
-                    <td class="text-left">Liao, Tsung-Chih (Paul)</td>
-                    <td class="text-left">Delta Electronics, Inc.</td>
-                    <td class="text-left">QA manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0931166086</td>
-                    <td class="text-left">paul.tc.liao@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-yellow" rowspan="4">聯繫公關組 (4位)</td>
-                    <td class="text-center">章廣榮</td>
-                    <td class="text-left">Chang, Kuang-Jung (Luigi)</td>
-                    <td class="text-left">ScaleFlux, Inc.</td>
-                    <td class="text-left">Sr. Director of Business Development and Product Engineering</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0920955623</td>
-                    <td class="text-left">114e.luigi.chang@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">吳懿展</td>
-                    <td class="text-left">Wu,Yi-Chan (Jordan)</td>
-                    <td class="text-left">Powerquark, Inc</td>
-                    <td class="text-left">Taiwan Country Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0935795798</td>
-                    <td class="text-left">jordan670613@yahoo.com.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">張肇驛</td>
-                    <td class="text-left">Chang. Chao-Yi (Austin)</td>
-                    <td class="text-left">Chernger technology co, Ltd.</td>
-                    <td class="text-left">General manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0939777483</td>
-                    <td class="text-left">auestin@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">門志漢</td>
-                    <td class="text-left">Men, Chih-han (Andrew)</td>
-                    <td class="text-left">ficonTEC service GmbH</td>
-                    <td class="text-left">Sourcing & Supply Chain Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0939533154</td>
-                    <td class="text-left">chihhanmen@gmail.com<br>andrew.men@ficontec.com<br>114e.andrew.men@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-yellow" rowspan="3">旅行財務組 (3位)</td>
-                    <td class="text-center">郭天立</td>
-                    <td class="text-left">Kuo, Tien-Li ( A-Li)</td>
-                    <td class="text-left">Si Wei Dental Group</td>
-                    <td class="text-left">Marketing manager</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0939710439</td>
-                    <td class="text-left">kuotianli6636@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">鄭竣升</td>
-                    <td class="text-left">Cheng, Chun-Sheng</td>
-                    <td class="text-left">UP SCIENTECH MATERIALS CORP.</td>
-                    <td class="text-left">SA manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">+86-15250477074</td>
-                    <td class="text-left">gn000894@hotmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">簡雅惠</td>
-                    <td class="text-left">Chien, Ya-Hui</td>
-                    <td class="text-left">Donpon Precision Inc.</td>
-                    <td class="text-left">Director, General Management Office</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0955998569</td>
-                    <td class="text-left">dorischien423@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-green" rowspan="3">行政支援組 (3位)</td>
-                    <td class="text-center">曾世翰</td>
-                    <td class="text-left">Tseng, Shih-Han</td>
-                    <td class="text-left">WAFER WORKS</td>
-                    <td class="text-left">Deputy Director - Facility Div.</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0933258098</td>
-                    <td class="text-left">peter050864@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">鍾曜宇</td>
-                    <td class="text-left">Chung, Yao-Yu (Ken)</td>
-                    <td class="text-left">Inventec</td>
-                    <td class="text-left">Developer Testing Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0919260665</td>
-                    <td class="text-left">114e.ken.chung@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">陳玠盟</td>
-                    <td class="text-left">Chen, Chieh-Meng</td>
-                    <td class="text-left">BellWether Electronic Corp.</td>
-                    <td class="text-left">Brand Marketing Project Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0911271513</td>
-                    <td class="text-left">niva@nayc.com.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-green" rowspan="3">活動紀錄組 (3位)</td>
-                    <td class="text-center">胡書瑋</td>
-                    <td class="text-left">Hu, Shu-Wei</td>
-                    <td class="text-left">Ion Applied Shenzhen Co., Ltd.</td>
-                    <td class="text-left">Director</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">+86-13771951585</td>
-                    <td class="text-left">hu0411@msn.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">陳俊安</td>
-                    <td class="text-left">Chen, Chun-An (Kinson)</td>
-                    <td class="text-left">HuaWei</td>
-                    <td class="text-left">Chief Engineer/ Project Leader</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0963639357<br>+86-15601743357</td>
-                    <td class="text-left">East5210@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">施元中</td>
-                    <td class="text-left">Shih, Yuan-Chung</td>
-                    <td class="text-left">Lihsing Co., Ltd.</td>
-                    <td class="text-left">Vice President</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0933136751</td>
-                    <td class="text-left">lstonyshih@gmail.com<br>114e.tony.shih@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-gray">團員</td>
-                    <td class="text-center">高長翰</td>
-                    <td class="text-left">Kao, Chang-Han (Bill)</td>
-                    <td class="text-left">National Chin-Yi University of Technology</td>
-                    <td class="text-left">Adjunct Lecturer</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0919150480</td>
-                    <td class="text-left">billkao.ncu@gmail.com</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="page-container">
+        <h1>曼谷離境航班及交通安排</h1>
+
+        <div class="date-section">
+            <div class="date-title">7/25 (六)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">回程航班</th>
+                        <th style="width: 15%;">離境時間</th>
+                        <th style="width: 10%;">合計</th>
+                        <th style="width: 40%;">搭接駁車</th>
+                        <th style="width: 20%;">不搭接駁車</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-center">BR202</td>
+                        <td class="align-center">15:10</td>
+                        <td class="align-center">1</td>
+                        <td class="align-left"></td>
+                        <td class="align-left">胡書瑋</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="date-section">
+            <div class="date-title">7/26 (日)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">回程航班</th>
+                        <th style="width: 15%;">離境時間</th>
+                        <th style="width: 10%;">合計</th>
+                        <th style="width: 40%;">搭接駁車</th>
+                        <th style="width: 20%;">不搭接駁車</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-center">CI-834</td>
+                        <td class="align-center">10:50</td>
+                        <td class="align-center">7</td>
+                        <td class="align-left">鍾曜宇一家人 (4人)、廖聰志</td>
+                        <td class="align-left">曾世翰、施元中</td>
+                    </tr>
+                    <tr>
+                        <td class="align-center">MU8614</td>
+                        <td class="align-center">11:50</td>
+                        <td class="align-center">3</td>
+                        <td class="align-left no-border-bottom">陳俊安、郭靜萍</td>
+                        <td class="align-left">鄭竣升</td>
+                    </tr>
+                    <tr>
+                        <td class="align-center">BR76</td>
+                        <td class="align-center">15:20</td>
+                        <td class="align-center">1</td>
+                        <td class="align-left no-border-top">高長翰</td>
+                        <td class="align-left"></td>
+                    </tr>
+                    <tr>
+                        <td class="align-center">BR068</td>
+                        <td class="align-center">16:45</td>
+                        <td class="align-center">7</td>
+                        <td class="align-left">章廣榮、張肇驛、吳懿展、門志漢<br>姜玫君、簡雅惠、陳玠鎰</td>
+                        <td class="align-left"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="date-section">
+            <div class="date-title">7/27 (一)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">回程航班</th>
+                        <th style="width: 15%;">離境時間</th>
+                        <th style="width: 10%;">合計</th>
+                        <th style="width: 40%;">搭接駁車</th>
+                        <th style="width: 20%;">不搭接駁車</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-center">BR068</td>
+                        <td class="align-center">16:45</td>
+                        <td class="align-center">1</td>
+                        <td class="align-left"></td>
+                        <td class="align-left">葉錦徽</td>
+                    </tr>
+                    <tr>
+                        <td class="align-center">BR206</td>
+                        <td class="align-center">(7/28)<br>01:35</td>
+                        <td class="align-center">1</td>
+                        <td class="align-left"></td>
+                        <td class="align-left">沈建文</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="date-section">
+            <div class="date-title">8/2 (日)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">回程航班</th>
+                        <th style="width: 15%;">離境時間</th>
+                        <th style="width: 10%;">合計</th>
+                        <th style="width: 40%;">搭接駁車</th>
+                        <th style="width: 20%;">不搭接駁車</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight-pink">BR067 ?</td>
+                        <td class="align-center"></td>
+                        <td class="align-center">1</td>
+                        <td class="align-left"></td>
+                        <td class="align-left">郭天立</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- 自動將大網頁的水平視角定位在正中央的指令 -->
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const scrollLeftPosition = (document.documentElement.scrollWidth - window.innerWidth) / 2;
-                window.scrollTo({
-                    left: scrollLeftPosition,
-                    behavior: 'auto'
-                });
-            }, 50);
-        });
-    </script>
 </body>
 </html>
