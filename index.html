@@ -1,140 +1,234 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 EMBA 海外參訪</title>
-    <style>
-        :root {
-            --primary-color: #1e3a8a; /* 企業深藍 */
-            --secondary-color: #3b82f6; /* 科技藍 */
-            --bg-color: #f8fafc;
-            --text-color: #334155;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        .header {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-        }
-        .header h1 { margin: 0; font-size: 1.5rem; }
-        .header p { margin: 5px 0 0 0; opacity: 0.8; font-size: 0.9rem; }
-        
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-        .section-title {
-            font-size: 1.1rem;
-            color: var(--primary-color);
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 10px;
-            margin: 25px 0 15px 0;
-            font-weight: bold;
-        }
-        /* 漂亮的大按鈕樣式，適合手機點擊 */
-        .grid-links {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .btn-link {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: transform 0.1s;
-        }
-        .btn-link:active {
-            transform: scale(0.98);
-            background-color: #f1f5f9;
-        }
-        .btn-link .icon {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            display: block;
-        }
-        .btn-full {
-            grid-column: span 2;
-            background-color: #fef08a; /* 亮黃色強調本日行程 */
-            border-color: #fef08a;
-            color: #854d0e;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            font-size: 0.8rem;
-            color: #94a3b8;
-            border-top: 1px solid #e2e8f0;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 中央EMBA 星泰團海外參訪 Portal</title>
+  <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #fff7ed 0%, #ffe4e6 45%, #e0f2fe 100%);
+      color: #1c1f26;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px 18px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+
+    .logo {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      background: #fff;
+    }
+
+    .title {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .info-card {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+      color: #ffffff;
+    }
+
+    .info-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .info-card p {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #111827;
+      padding-left: 4px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .menu-btn {
+      background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+      border-radius: 20px;
+      padding: 22px 14px;
+      text-decoration: none;
+      color: #111827;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 110px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #f97316, #ec4899, #3b82f6);
+    }
+
+    .menu-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    .menu-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 420px) {
+      .title {
+        font-size: 26px;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="hero">
+      <img src="中央EMBA logo.jpg" alt="中央EMBA Logo" class="logo">
 
-    <div class="header">
-        <h1>2026 NCU EMBA 星泰團海外參訪</h1>
+      <div class="title">2026 星泰團海外參訪</div>
+      <div class="subtitle">
+        National Central University EMBA Overseas Visit Portal<br>
+        新加坡 × 泰國｜商務參訪 × 交流學習 × 國際鏈結
+      </div>
+
+      <div class="info-card">
+        <h3>活動資訊</h3>
+        <p>
+          日期：2026/7/20-7/24<br>
+          用途：行程整合、資訊查詢、即時連結入口
+        </p>
+      </div>
     </div>
 
-    <div class="container">
-        
-        <div class="section-title">📌 核心行程與通知</div>
-        <div class="grid-links">
-            <!-- 請將下面的 href 替換為您的 OneDrive 檔案分享連結 -->
-            <a href="Itinerary.html" class="btn-link btn-full" target="_blank">
-                <span class="icon">📅</span><strong>【必看】每日行程總覽</strong>
-            </a>
-            <a href="您的OneDrive行前通知連結" class="btn-link" target="_blank">
-                <span class="icon">📢</span>行前注意事項
-            </a>
-            <a href="您的OneDrive分組名單連結" class="btn-link" target="_blank">
-                <span class="icon">👥</span>分房表
-            </a>
-        </div>
+    <div class="section-title">功能選單</div>
 
-        <div class="section-title">🏢 受訪企業資訊 (官網連結)</div>
-        <div class="grid-links">
-            <!-- 直接連結到企業官網，長城不屏蔽 -->
-            <a href="https://www.microsoft.com" class="btn-link" target="_blank">
-                <span class="icon">🏢</span>NUS
-            </a>
-            <a href="https://www.amazon.com" class="btn-link" target="_blank">
-                <span class="icon">📦</span>HSBC
-            </a>
-        </div>
+    <div class="menu-grid">
+      <a class="menu-btn" href="Itinerary.html">
+        <div class="menu-title"><i class="fa-solid fa-calendar-days"></i> 行程總覽</div>
+        <div class="menu-desc">每日活動、時間與移動安排</div>
+      </a>
 
-        <div class="section-title">📞 緊急後勤與通訊</div>
-        <div class="grid-links">
-            <!-- 撥電話功能：手機點擊可直接撥號 -->
-            <a href="tel:+886912345678" class="btn-link">
-                <span class="icon">☎️</span>台灣隨團領隊
-            </a>
-            <!-- 連結到您的個人 OneDrive 飯店與航班資料夾 -->
-            <a href="您的OneDrive飯店機票資料夾連結" class="btn-link" target="_blank">
-                <span class="icon">✈️</span>航班與飯店電子憑證
-            </a>
-        </div>
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-users"></i> 成員名單</div>
+        <div class="menu-desc">團員資訊與工作分配</div>
+      </a>
 
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-building"></i> 參訪單位</div>
+        <div class="menu-desc">企業、學校與交流機構資訊</div>
+      </a>
+
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-plane"></i> 航班</div>
+        <div class="menu-desc">去回程班機資訊</div>
+      </a>
+
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-handshake"></i> 接機</div>
+        <div class="menu-desc">接機安排</div>
+      </a>
+
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-car-side"></i> 送機</div>
+        <div class="menu-desc">返程送機安排</div>
+      </a>
+
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-hotel"></i> 住宿</div>
+        <div class="menu-desc">房間分配</div>
+      </a>
+
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-utensils"></i> 餐廳</div>
+        <div class="menu-desc">聚餐地點</div>
+      </a>
+
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-circle-info"></i> 其他資訊</div>
+        <div class="menu-desc">備註事項</div>
+      </a>
     </div>
 
     <div class="footer">
-        <p>如有任何行程疑問，請與班代或隨團秘書聯繫。</p>
-        <p>© 2026 NCU EMBA 114E. All Rights Reserved.</p>
+      2026 National Central University EMBA Overseas Visit Portal<br>
+      Designed for Mobile Experience
     </div>
-
+  </div>
 </body>
 </html>
