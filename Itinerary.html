@@ -9,7 +9,10 @@
       a.comment-indicator:hover + div.comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em }
       a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em }
       div.comment { display:none }
-      table { border-collapse:collapse; page-break-after:always }
+      
+      /* 【修改】加入 margin 左右 auto 使表格整體水平置中 */
+      table { border-collapse:collapse; page-break-after:always; margin-left: auto !important; margin-right: auto !important; }
+      
       .gridlines td { border:1px dotted black }
       .gridlines th { border:1px dotted black }
       .b { text-align:center }
@@ -96,7 +99,8 @@
   <body>
 <style>
 @page { margin-left: 0.7in; margin-right: 0.7in; margin-top: 0.75in; margin-bottom: 0.75in; }
-body { margin-left: 0.7in; margin-right: 0.7in; margin-top: 0.75in; margin-bottom: 0.75in; }
+/* 【修改】將 body 的固定左/右邊距改為 padding 留白，以利表格在畫面內自動置中 */
+body { padding-left: 0.7in; padding-right: 0.7in; margin-top: 0.75in; margin-bottom: 0.75in; margin-left: 0; margin-right: 0; }
 </style>
     <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
         <col class="col0">
@@ -224,7 +228,7 @@ marjorieang@dbs.com</td>
             <td class="column0 style10 null"></td>
             <td class="column1 style15 s">Dinner</td>
             <td class="column2 style16 null"></td>
-            <td class="column3 style16 s">THE BEACH (<span style="color:#000000; font-family:'微軟正黑體'; font-size:12pt">餐標</span><span style="color:#000000; font-family:'Calibri'; font-size:12pt">  500 THB)</span></td>
+            <td class="column3 style16 s">THE BEACH (<span style="color:#000000; font-family:'微軟正黑體'; font-size:12pt">餐標</span><span style="color:#000000; font-family:'Calibri'; font-size:12pt">  500 THB)</span></td>
             <td class="column4 style16 null"></td>
             <td class="column5 style16 null"></td>
             <td class="column6 style16 null"></td>
