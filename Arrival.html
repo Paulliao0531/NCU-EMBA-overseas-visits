@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.2, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, minimum-scale=0.2, user-scalable=yes">
     <title>入境航班及交通安排</title>
     <style>
         /* 頁面全域設定：畫面水平置中 */
@@ -15,10 +15,10 @@
             background-color: #ffffff;
         }
 
-        /* 網頁主容器 */
+        /* 網頁主容器：設定固定寬度 740px (100+100+60+320+160) */
         .container {
-            width: auto; /* 依原尺寸不佔滿整個螢幕 */
-            max-width: 100%;
+            width: 740px; 
+            max-width: none; /* 取消最大寬度限制 */
         }
 
         /* 大標題樣式 */
@@ -30,7 +30,7 @@
             text-align: left;
         }
 
-        /* 日期標題樣式：已消除 text-decoration: underline 底線 */
+        /* 日期標題樣式 */
         .date-header {
             font-size: 22px;
             font-weight: bold;
@@ -39,20 +39,24 @@
             text-align: left;
         }
 
-        /* 表格基本樣式 */
+        /* 表格基本樣式：強制使用固定布局且鎖定總寬度 */
         table {
             border-collapse: collapse;
             margin-bottom: 30px;
             font-size: 16px;
             background-color: #FFF2CC; /* 表格內底色 */
+            width: 740px;            /* 固定總寬度 */
+            table-layout: fixed;    /* 強制瀏覽器遵守欄位寬度設定 */
         }
 
-        /* 儲存格邊框與內距：較細的 1px 黑色格線 */
+        /* 儲存格邊框與內距 */
         th, td {
             border: 1px solid #000000; 
             padding: 8px 12px;
             height: 24px;
             vertical-align: middle;
+            word-wrap: break-word;   /* 文字過長時強制換行，不撐開欄位 */
+            overflow: hidden;        /* 確保不溢出 */
         }
 
         /* 表頭樣式：原圖橘色調 */
@@ -62,7 +66,7 @@
             font-weight: normal;
         }
 
-        /* 對齊方式設定（保留原圖對齊方式） */
+        /* 對齊方式設定 */
         .text-center {
             text-align: center;
         }
