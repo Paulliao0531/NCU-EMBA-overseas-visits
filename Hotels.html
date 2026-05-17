@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, minimum-scale=0.5, user-scalable=yes">
+    <title>Hotels & Accommodations</title>
+    <style>
+        /* 全域盒模型 */
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+        }
+
+        /* 畫布背景與置中 */
+        body {
+            display: block;
+            margin: 0;
+            padding: 20px 10px;
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            color: #333333;
+        }
+
+        /* 主容器：獨立實體畫布 */
+        .page-container {
+            margin: 0 auto;
+            width: fit-content;
+            max-width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            padding: 30px;
+            /* 水平安全鎖 */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 頂部標題 */
+        .page-title {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #c85a17;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        /* 飯店資訊區塊 */
+        .hotel-section {
+            margin-bottom: 30px;
+        }
+
+        .hotel-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .hotel-link {
+            display: block;
+            flex-shrink: 0;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .hotel-link:hover {
+            transform: scale(1.02);
+        }
+
+        .hotel-image {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .hotel-info {
+            margin-left: 20px;
+        }
+
+        .hotel-name {
+            font-size: 20pt;
+            font-weight: bold;
+            color: #000000;
+            margin: 0 0 8px 0;
+        }
+
+        .hotel-details {
+            font-size: 13pt;
+            line-height: 1.5;
+            color: #333333;
+            margin: 0;
+        }
+
+        /* 名單表格結構 */
+        .roster-table {
+            border-collapse: separate;
+            border-spacing: 15px;
+            width: auto;
+            min-width: 650px;
+            margin-top: 10px;
+        }
+
+        .roster-table td {
+            width: 50%;
+            height: 72px;
+            background-color: #fbebe1;
+            border: 2px solid #d97736;
+            border-radius: 4px;
+            padding: 10px 15px;
+            text-align: center;
+            vertical-align: middle; /* 所有格子內的文字垂直置中對齊 */
+            font-size: 15pt;
+            font-weight: 500;
+            color: #000000;
+            white-space: pre-line; /* 支援內容換行 */
+            line-height: 1.4;
+        }
+        
+        .roster-table td.empty-cell {
+            background-color: transparent;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <h1 class="page-title">Hotels</h1>
+
+        <div class="hotel-section">
+            <div class="hotel-card">
+                <a href="https://www.orchidhotel.com.sg/" target="_blank" class="hotel-link" title="前往新加坡蘭花飯店官網">
+                    <img src="Orchid.jpg" alt="Orchid Hotel Singapore" class="hotel-image">
+                </a>
+                <div class="hotel-info">
+                    <h2 class="hotel-name">Orchid Hotel Singapore</h2>
+                    <p class="hotel-details">
+                        1 Tras Link (Tanjong Pagar), Singapore 078867<br>
+                        TEL : +65 6818 6818
+                    </p>
+                </div>
+            </div>
+
+            <div class="hotel-card">
+                <a href="https://www.hyatt.com/en-US/hotel/thailand/grand-hyatt-erawan-bangkok/bangh" target="_blank" class="hotel-link" title="前往曼谷愛侶灣凱悅酒店官網">
+                    <img src="Hyatt.jpg" alt="Grand Hyatt Erawan Bangkok" class="hotel-image">
+                </a>
+                <div class="hotel-info">
+                    <h2 class="hotel-name">Grand Hyatt Erawan Bangkok</h2>
+                    <p class="hotel-details">
+                        494 Rajdamri Road, Bangkok, Bangkok<br>
+                        Metropolitan 10330, Thailand<br>
+                        TEL : +66 2 254 1234
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <table class="roster-table">
+            <tr>
+                <td>葉錦徽</td>
+                <td>沈建文</td>
+            </tr>
+            <tr>
+                <td>廖聰志</td>
+                <td>章廣榮</td>
+            </tr>
+            <tr>
+                <td>張肇驛</td>
+                <td>吳懿展</td>
+            </tr>
+            <tr>
+                <td>姜玫君
+簡雅惠
+陳玠錳</td>
+                <td>鍾曜宇 (4人)
+2房、大床</td>
+            </tr>
+            <tr>
+                <td>陳俊安+郭靜萍
+(大床)</td>
+                <td>門志漢 (7/18-26)
+高長翰 (7/19-26)</td>
+            </tr>
+            <tr>
+                <td>曾世翰
+施元中</td>
+                <td>胡書瑋 (7/18-25)
+鄭竣升 (7/19-26)</td>
+            </tr>
+            <tr>
+                <td>郭天立
+Somebody</td>
+                <td class="empty-cell"></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
