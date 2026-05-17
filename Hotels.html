@@ -40,7 +40,15 @@
             font-weight: bold;
             color: #c85a17;
             margin-top: 0;
-            margin-bottom: 25px;
+            margin-bottom: 10px; /* 稍微縮小下邊距以留空間給提示字 */
+            text-align: left;
+        }
+
+        /* 提示文字樣式 */
+        .hotel-tip {
+            font-size: 13pt;
+            color: #666666;
+            margin-bottom: 20px;
             text-align: left;
         }
 
@@ -127,6 +135,9 @@
 
     <div class="page-container">
         <h1 class="page-title">Hotels</h1>
+
+        <!-- 新增的提示文字 -->
+        <div class="hotel-tip">點擊照片可進入飯店官網</div>
 
         <div class="hotel-section">
             <div class="hotel-card">
