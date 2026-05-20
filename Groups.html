@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, minimum-scale=0.5, user-scalable=yes">
+    <title>報告分組</title>
+    <style>
+        /* 【全域盒模型】 */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* 【畫布背景與置中】 */
+        body {
+            display: block;
+            margin: 0;
+            padding: 20px 10px;
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            color: #333333;
+        }
+
+        /* 主容器 (.page-container) */
+        .page-container {
+            margin: 0 auto;
+            width: fit-content;
+            max-width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            padding: 30px;
+            /* 水平安全鎖 */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 標題與日期視覺風格 */
+        h1 {
+            font-size: 20pt;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #111111;
+            letter-spacing: 1px;
+        }
+
+        /* 標題 Icon 的縮放比例 */
+        h1 svg {
+            width: 24pt;
+            height: 24pt;
+            flex-shrink: 0;
+        }
+
+        /* 【表格寬度自適應】 */
+        table {
+            width: auto;
+            min-width: 650px;
+            border-collapse: collapse;
+        }
+
+        /* 儲存格規格與垂直置中對齊 */
+        th, td {
+            padding: 16px 20px;
+            vertical-align: middle;
+            text-align: left;
+            line-height: 1.6;
+            white-space: pre-line;
+            font-size: 14pt;
+        }
+
+        /* 專業乾淨的細部線條風格 */
+        tr {
+            border-bottom: 1.5px solid #222222;
+        }
+
+        tr:first-child {
+            border-top: 1.5px solid #222222;
+        }
+
+        /* 欄寬鎖定與排版微調 */
+        .col-id {
+            width: 60px;
+            text-align: center;
+            font-weight: bold;
+            color: #111111;
+        }
+
+        .col-names {
+            width: 180px;
+            font-weight: 500;
+            color: #222222;
+            letter-spacing: 0.5px;
+        }
+
+        .col-companies {
+            min-width: 410px;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <h1>
+        <!-- Report Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        報告分組
+    </h1>
+    <table>
+        <tbody>
+            <tr>
+                <td class="col-id">1</td>
+                <td class="col-names">姜玫君<br>簡雅惠<br>陳玠錳</td>
+                <td class="col-companies">• HSBC<br>• True Digital Park<br>• National Innovation Agency</td>
+            </tr>
+            <tr>
+                <td class="col-id">2</td>
+                <td class="col-names">郭天立<br>張肇驛<br>廖聰志</td>
+                <td class="col-companies">• Depa<br>• DBS<br>• HMGICS</td>
+            </tr>
+            <tr>
+                <td class="col-id">3</td>
+                <td class="col-names">鄭竣升<br>胡書瑋<br>陳俊安</td>
+                <td class="col-companies">• NUS AIDF<br>• HSBC<br>• HMGICS</td>
+            </tr>
+            <tr>
+                <td class="col-id">4</td>
+                <td class="col-names">章廣榮<br>吳懿展<br>鍾曜宇</td>
+                <td class="col-companies">• NUS AIDF<br>• DBS<br>• True Digital Park</td>
+            </tr>
+            <tr>
+                <td class="col-id">5</td>
+                <td class="col-names">門志漢<br>施元中<br>曾世翰</td>
+                <td class="col-companies">• National Innovation Agency<br>• Asia Sermkij Leasing Public Company Limited<br>• Bangkok Grand Pacific Lease Public Company Limited</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
