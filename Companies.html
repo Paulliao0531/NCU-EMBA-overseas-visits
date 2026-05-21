@@ -41,7 +41,7 @@
 
     .tab-button {
       padding: 10px 24px;
-      font-size: 16px;
+      font-size: 24px;
       font-weight: bold;
       border: none;
       background: none;
@@ -105,6 +105,8 @@
     .visit-item {
       display: table;
       width: 100%;
+      /* 關鍵修改 1：強制表格採用固定佈局演算法，寬度才會受到限制，文字才能順利換行 */
+      table-layout: fixed; 
       border-radius: 16px;
       padding: 20px 25px;
       background-color: #ffffff;
@@ -151,20 +153,26 @@
 
     .cell-info {
       padding-right: 20px;
+      /* 關鍵修改 2：在固定佈局下，雖然有設定 info-desc 斷行，但若外層 cell 未宣告寬度，
+         某些瀏覽器（如 Safari）依然會將其無限拉伸。設定 width: 100% 能確保文字填滿剩餘空間並強制觸發斷行。 */
+      width: 100%; 
     }
 
     .info-title {
-      font-size: 20px;
+      font-size: 28px;
       font-weight: bold;
       color: #111111;
       margin-bottom: 8px;
     }
 
     .info-desc {
-      font-size: 14px;
+      font-size: 24px;
       color: #555555;
       line-height: 1.5;
       white-space: pre-line;
+      /* 關鍵修改 3：明確指定中英文字元的斷行規則，避免英文專有名詞、網址或標點符號卡死導致不換行 */
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     .cell-arrow {
