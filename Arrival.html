@@ -20,37 +20,47 @@
             position: relative; /* 讓絕對定位的按鈕可以相對於 body 定位 */
         }
 
-        /* 修改：回首頁圖標樣式（改為 fixed 懸浮模式） */
-        .home-button {
-            position: fixed; /* 關鍵修改：改為固定定位，不隨畫面捲動 */
+        /* 懸浮首頁按鈕基礎樣式 */
+        .home-link {
+            position: fixed;
             top: 20px;
             left: 20px;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 80px;
             height: 80px;
             background-color: #ffffff;
-            border: 1px solid #dddddd;
             border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            color: #C55A11; /* 使用與大標題相同的橘色調 */
-            transition: all 0.2s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             text-decoration: none;
-            z-index: 1000; /* 確保圖標在最上層 */
         }
 
-        .home-button:hover {
-            background-color: #C55A11;
-            color: #ffffff;
-            border-color: #C55A11;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(197, 90, 17, 0.3);
+        /* 懸停動態放大效果 (外圓同步放大至 88px) */
+        .home-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* 複製第一段獨立容器邏輯：畫面水平置中，大小依原尺寸不佔滿整個螢幕，提供極小螢幕下的安全水平捲動 */
+        /* 內部首頁 SVG 圖標樣式 */
+        .home-link svg {
+            width: 40px;
+            height: 40px;
+            fill: #C55A11;
+            transition: fill 0.2s ease;
+        }
+
+        /* 懸停時圖標變更為藍位提示 */
+        .home-link:hover svg {
+            fill: #0076cc;
+        }
+
+        /* 複製第一段獨立容器邏輯：畫面水平置中 */
         .page-container {
             margin: 0 auto;
+            margin-top: 60px; /* 調整主容器避免遮擋：預留上方空間防止按鈕重疊 */
             width: fit-content;
             max-width: 100%;
             background-color: #ffffff;
@@ -83,31 +93,30 @@
             margin-bottom: 0;
         }
 
-        /* 日期標題樣式：融合第一段底線設計與第二段黑字視覺 */
+        /* 日期標題樣式 */
         .date-header {
             font-size: 16pt;
             font-weight: bold;
             color: #000000;
             margin-bottom: 8px;
             text-align: left;
-            /*border-bottom: 2px solid #000000;*/
             padding-bottom: 3px;
             width: fit-content;
             min-width: 70px;
         }
 
-        /* 表格基本樣式：套用第一段彈性自適應寬度與硬性黑邊框 */
+        /* 表格基本樣式 */
         table {
             border-collapse: collapse;
-            width: auto; /* 依原尺寸不佔滿螢幕 */
+            width: auto; 
             min-width: 650px; /* 確保表格保持原圖的寬度與可讀性，防擠壓變形 */
             border: 1px solid #000000;
             font-size: 11pt;
         }
 
-        /* 表頭樣式：融合第一段內距與第二段原橘色底色 */
+        /* 表頭樣式 */
         th {
-            background-color: #F4B183; /* 保留第二段原表頭橘色 */
+            background-color: #F4B183; 
             color: #000000;
             font-weight: normal;
             border: 1px solid #000000;
@@ -115,12 +124,12 @@
             text-align: center;
         }
 
-        /* 儲存格樣式：融合第一段內距與第二段原淡黃底色 */
+        /* 儲存格樣式 */
         td {
             border: 1px solid #000000;
             padding: 8px 12px;
             vertical-align: middle;
-            background-color: #FFF2CC; /* 保留第二段原表格淡黃底色 */
+            background-color: #FFF2CC; 
             color: #000000;
         }
 
@@ -131,16 +140,16 @@
 
         .text-left {
             text-align: left;
-            white-space: pre-line; /* 支援旅客名單內換行 */
+            white-space: pre-line; 
             line-height: 1.4;
         }
 
         /* 針對移動端做微調，調整懸浮按鈕的間距 */
         @media (max-width: 768px) {
             body {
-                padding-top: 20px; /* 恢復正常頂部留白，因為 icon 已經懸浮不佔空間 */
+                padding-top: 20px; 
             }
-            .home-button {
+            .home-link {
                 top: 15px;
                 left: 15px;
             }
@@ -149,11 +158,10 @@
 </head>
 <body>
 
-    <!-- 新增：回首頁的 HTML 結構 (使用 SVG 房子圖標) -->
-    <a href="index.html" class="home-button" title="回首頁">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
+    <!-- 懸浮首頁按鈕 -->
+    <a href="index.html" class="home-link" title="返回首頁">
+        <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
         </svg>
     </a>
 
