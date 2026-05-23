@@ -16,6 +16,48 @@
         min-width: 100%;
     }
     
+    /* 懸浮首頁按鈕基礎樣式 */
+    .home-link {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+    }
+
+    /* 懸停動態放大效果 (外圓同步放大至 88px) */
+    .home-link:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 內部首頁 SVG 圖標樣式 */
+    .home-link svg {
+        width: 40px;
+        height: 40px;
+        fill: #C55A11;
+        transition: fill 0.2s ease;
+    }
+
+    /* 懸停時圖標變更為藍位提示 */
+    .home-link:hover svg {
+        fill: #0076cc;
+    }
+
+    /* 主容器：確保上方預留足夠空間，避免內容與固定在左上角的首頁按鈕產生視覺重疊 */
+    .main-content-wrapper {
+        padding-top: 80px;
+    }
+    
     /* 移除所有隱藏與捲軸設定，讓容器寬度完全由表格寬度決定 */
     .table-container {
         display: block;
@@ -75,7 +117,14 @@
 </head>
 <body>
 
-<div>
+<!-- 懸浮首頁按鈕 -->
+<a href="index.html" class="home-link" title="返回首頁">
+  <svg viewBox="0 0 24 24">
+    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+  </svg>
+</a>
+
+<div class="main-content-wrapper">
     <div class="scroll-tip">💡 提示：本表格支援雙指縮放，您可以直接用手指拖曳整個頁面瀏覽完整內容。</div>
     <div class="table-container">
         <table>
