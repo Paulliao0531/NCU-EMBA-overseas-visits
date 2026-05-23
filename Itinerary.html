@@ -10,10 +10,10 @@
             font-family: "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
             background-color: #f9f9f9;
             margin: 0;
-            padding: 80px 20px 20px 20px; /* 增加上方 padding，避免懸浮按鈕與主容器產生視覺重疊 */
+            padding: 20px; /* 縮減全域內邊距，讓內容整體往上移 */
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* 改為靠上對齊，避免表格在大螢幕居中垂直置中 */
             min-height: 100vh;
             box-sizing: border-box;
         }
@@ -59,7 +59,7 @@
         .table-container {
             width: 100%;
             max-width: 1800px;
-            margin-top: 40px; /* 加上上方邊距，與固定在左上角的按鈕預留足夠空間 */
+            margin-top: 90px; /* 保留剛好避開左上角 80px HOME按鈕的空間，不產生視覺重疊 */
             overflow-x: auto;
             background: #ffffff;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
