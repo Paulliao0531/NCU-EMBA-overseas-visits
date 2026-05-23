@@ -26,8 +26,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 150px;
-      height: 150px;
+      width: 80px; /* 外圓寬度保持不變 */
+      height: 80px; /* 外圓高度保持不變 */
       background-color: #ffffff;
       border-radius: 50%;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
@@ -36,14 +36,14 @@
     }
 
     .home-link:hover {
-      transform: scale(1.1);
+      transform: scale(1.1); /* 懸停時，外圓和Icon同步放大，外圓變為 88px */
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .home-link svg {
-      width: 26px;
-      height: 26px;
-      fill: #444444;
+      width: 40px; /* 已修改：加大50% (原本為26px) */
+      height: 40px; /* 已修改：加大50% (原本為26px) */
+      fill: #C55A11;
       transition: fill 0.2s ease;
     }
 
