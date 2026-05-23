@@ -20,16 +20,16 @@
             position: relative; /* 讓絕對定位的按鈕可以相對於 body 定位 */
         }
 
-        /* 新增：回首頁圖標樣式 */
+        /* 修改：回首頁圖標樣式（改為 fixed 懸浮模式） */
         .home-button {
-            position: absolute;
+            position: fixed; /* 關鍵修改：改為固定定位，不隨畫面捲動 */
             top: 20px;
             left: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 42px;
-            height: 42px;
+            width: 55px;
+            height: 55px;
             background-color: #ffffff;
             border: 1px solid #dddddd;
             border-radius: 50%;
@@ -135,10 +135,10 @@
             line-height: 1.4;
         }
 
-        /* 針對移動端做微調，避免 icon 擋住主要內容 */
+        /* 針對移動端做微調，調整懸浮按鈕的間距 */
         @media (max-width: 768px) {
             body {
-                padding-top: 75px; /* 給頂部留出空間放 icon */
+                padding-top: 20px; /* 恢復正常頂部留白，因為 icon 已經懸浮不佔空間 */
             }
             .home-button {
                 top: 15px;
@@ -175,7 +175,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center">BR225</td>
+                        <td class="text-center">BR 225</td>
                         <td class="text-center">11:55</td>
                         <td class="text-center">1</td>
                         <td></td>
@@ -199,7 +199,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center" rowspan="2">BR215</td>
+                        <td class="text-center" rowspan="2">BR 215</td>
                         <td class="text-center" rowspan="2">13:55</td>
                         <td class="text-center" rowspan="2">8</td>
                         <td class="text-left">章廣榮、張肇驛、吳懿展、胡書瑋</td>
@@ -209,14 +209,14 @@
                         <td class="text-left">姜玫君、簡雅惠、陳玠錳、門志漢</td>
                     </tr>
                     <tr>
-                        <td class="text-center">CI-753</td>
+                        <td class="text-center">CI 753</td>
                         <td class="text-center">12:35</td>
                         <td class="text-center">6</td>
                         <td class="text-left">鍾曜宇一家人 (4人), 17:00接</td>
                         <td class="text-left">曾世翰、施元中</td>
                     </tr>
                     <tr>
-                        <td class="text-center">SQ827</td>
+                        <td class="text-center">SQ 827</td>
                         <td class="text-center">13:25</td>
                         <td class="text-center">2</td>
                         <td class="text-left">陳俊安、郭靜萍</td>
@@ -240,28 +240,28 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center">CI-753</td>
+                        <td class="text-center">CI 753</td>
                         <td class="text-center">12:35</td>
                         <td class="text-center">1</td>
                         <td class="text-left" style="border-bottom: none;">廖聰志</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="text-center">BR215</td>
+                        <td class="text-center">BR 215</td>
                         <td class="text-center">13:55</td>
                         <td class="text-center">2</td>
                         <td class="text-left" style="border-top: none;">葉錦徽、高長翰</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="text-center">SQ827</td>
+                        <td class="text-center">SQ 827</td>
                         <td class="text-center">13:25</td>
                         <td class="text-center">1</td>
                         <td></td>
                         <td class="text-left">鄭竣升</td>
                     </tr>
                     <tr>
-                        <td class="text-center">SQ879</td>
+                        <td class="text-center">SQ 879</td>
                         <td class="text-center">22:15</td>
                         <td class="text-center">1</td>
                         <td></td>
