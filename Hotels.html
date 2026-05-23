@@ -20,9 +20,9 @@
             color: #333333;
         }
 
-        /* 主容器：獨立實體畫布 */
+        /* 主容器：獨立實體畫布（已加入 margin-top 避免遮擋） */
         .page-container {
-            margin: 0 auto;
+            margin: 60px auto 0 auto; /* 調整上方外邊距，預留空間給左上角首頁按鈕 */
             width: fit-content;
             max-width: 100%;
             background-color: #ffffff;
@@ -32,6 +32,43 @@
             /* 水平安全鎖 */
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+        }
+
+        /* 懸浮首頁按鈕基礎樣式 */
+        .floating-home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+        }
+
+        /* 懸停動態放大效果 (外圓同步放大至 88px) */
+        .floating-home-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 內部首頁 SVG 圖標樣式 */
+        .floating-home-link svg {
+            width: 40px;
+            height: 40px;
+            fill: #C55A11;
+            transition: fill 0.2s ease;
+        }
+
+        /* 懸停時圖標變更為藍位提示 */
+        .floating-home-link:hover svg {
+            fill: #0076cc;
         }
 
         /* 頂部標題 */
@@ -132,6 +169,13 @@
     </style>
 </head>
 <body>
+
+    <!-- 懸浮首頁按鈕 (置於 body 最上方) -->
+    <a href="index.html" class="floating-home-link" title="返回首頁">
+        <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
 
     <div class="page-container">
         <h1 class="page-title">Hotels</h1>
