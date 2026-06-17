@@ -26,8 +26,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 80px; /* 外圓寬度保持不變 */
-      height: 80px; /* 外圓高度保持不變 */
+      width: 80px; 
+      height: 80px; 
       background-color: #ffffff;
       border-radius: 50%;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
@@ -36,22 +36,22 @@
     }
 
     .home-link:hover {
-      transform: scale(1.1); /* 懸停時，外圓和Icon同步放大，外圓變為 88px */
+      transform: scale(1.1); 
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .home-link svg {
-      width: 40px; /* 已修改：加大50% (原本為26px) */
-      height: 40px; /* 已修改：加大50% (原本為26px) */
+      width: 40px; 
+      height: 40px; 
       fill: #C55A11;
       transition: fill 0.2s ease;
     }
 
     .home-link:hover svg {
-      fill: #0076cc; /* 滑過時轉為藍色提示 */
+      fill: #0076cc; 
     }
 
-    /* 主畫布容器 - 調整上方內距避免內容與固定按鈕重疊 */
+    /* 主畫布容器 */
     .page-container {
       margin: 0 auto;
       width: fit-content;
@@ -62,40 +62,18 @@
       padding: 30px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      margin-top: 60px; /* 預留上方空間給首頁按鈕 */
+      margin-top: 60px; 
     }
 
-    /* 分頁控制項 */
-    .tab-control {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 25px;
-      border-bottom: 2px solid #e0e0e0;
-      padding-bottom: 10px;
+    /* 國家大標題間距調整 */
+    .country-section {
+      margin-bottom: 45px;
+    }
+    
+    .country-section:last-child {
+      margin-bottom: 0;
     }
 
-    .tab-button {
-      padding: 10px 24px;
-      font-size: 24px;
-      font-weight: bold;
-      border: none;
-      background: none;
-      cursor: pointer;
-      color: #666666;
-      transition: all 0.3s ease;
-    }
-
-    .tab-button.active[data-target="singapore"] {
-      color: #0076cc;
-      border-bottom: 3px solid #0076cc;
-    }
-
-    .tab-button.active[data-target="thailand"] {
-      color: #d65c19;
-      border-bottom: 3px solid #d65c19;
-    }
-
-    /* 國家大標題 */
     .country-title {
       display: flex;
       align-items: center;
@@ -113,16 +91,6 @@
 
     .thailand-theme .country-title {
       color: #d65c19;
-    }
-
-    /* 分頁內容顯示/隱藏 */
-    .tab-content {
-      display: none;
-      min-width: 650px; /* 確保內容在行動端不擠壓變形 */
-    }
-
-    .tab-content.active {
-      display: block;
     }
 
     /* 參訪清單卡片結構 */
@@ -153,7 +121,7 @@
       transform: translateY(-2px);
     }
 
-    /* 依據國家別設定框線顏色*/ 
+    /* 依據國家別設定框線顏色與懸停效果 */ 
     .singapore-theme .visit-item {
       border: 2px solid #0076cc;
     }
@@ -167,7 +135,6 @@
     .thailand-theme .visit-item:hover {
       box-shadow: 0 4px 12px rgba(214, 92, 25, 0.15);
     }
-    
 
     /* 表格單元格模擬與垂直置中 */
     .visit-cell {
@@ -175,17 +142,19 @@
       vertical-align: middle;
     }
 
+    /* 左側 ICON 區塊：放大並水平置中 */
     .cell-logo {
-      width: 140px;
-      text-align: left;
-      padding-right: 20px;
+      width: 100px; /* 稍微縮小寬度讓版面更緊湊 */
+      text-align: center;
+      padding-right: 15px;
     }
 
-    .cell-logo img {
-      max-width: 120px;
-      max-height: 70px;
-      object-fit: contain;
-      display: block;
+    /* 大 ICON 樣式，跨越右側兩行文字 */
+    .big-restaurant-icon {
+      font-size: 48px; /* 放大 ICON */
+      line-height: 1;
+      display: inline-block;
+      font-style: normal;
     }
 
     .cell-info {
@@ -232,6 +201,14 @@
     .thailand-theme .cell-arrow svg {
       stroke: #d65c19;
     }
+
+    /* 兩個國家之間的分隔線 */
+    .section-divider {
+      border: 0;
+      height: 1px;
+      background: #e0e0e0;
+      margin: 40px 0;
+    }
   </style>
 </head>
 <body>
@@ -244,25 +221,18 @@
 
   <div class="page-container">
     
-    <div class="tab-control">
-      <button class="tab-button active" data-target="singapore">新加坡 Singapore</button>
-      <button class="tab-button" data-target="thailand">泰國 Thailand</button>
-    </div>
-
-    <div id="singapore" class="tab-content active singapore-theme">
-      <h1 class="country-title"><span style="font-style: normal; margin-right: 10px; display: inline-block;">🍴</span>Singapore</h1>
+    <div id="singapore" class="country-section singapore-theme">
+      <h1 class="country-title"><span style="font-style: normal; margin-right: 10px; display: inline-block;"></span>Singapore</h1>
       <div class="visit-list">
         
         <a href="https://imperialrestaurant1988.com/" class="visit-item-link">
           <div class="visit-item">
             <div class="visit-cell cell-logo">
-               
+              <span class="big-restaurant-icon">🍵</span>
             </div>
-
             <div class="visit-cell cell-info">
-		<div class="info-desc">7/20 (Mon), Dinner (與參訪對象餐敍)</div>              
-		<div class="info-title">宏仁堂風味養生餐</div>
-	      
+              <div class="info-desc">7/20 (Mon), Dinner (與參訪對象餐敍)</div>              
+              <div class="info-title">宏仁堂風味養生餐</div>
             </div>
             <div class="visit-cell cell-arrow">
               <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
@@ -270,25 +240,23 @@
           </div>
         </a>
 
-        
-
       </div>
     </div>
 
-   <div id="thailand" class="tab-content thailand-theme">
-      <h1 class="country-title"><span style="font-style: normal; margin-right: 10px; display: inline-block;">🍴</span>Thailand</h1>
+    <hr class="section-divider">
+
+    <div id="thailand" class="country-section thailand-theme">
+      <h1 class="country-title"><span style="font-style: normal; margin-right: 10px; display: inline-block;"></span>Thailand</h1>
       <div class="visit-list">
         
         <a href="https://www.taithaione.com/tw/article/1317" class="visit-item-link">
           <div class="visit-item">
             <div class="visit-cell cell-logo">
-               
+              <span class="big-restaurant-icon">🏖️</span>
             </div>
-
             <div class="visit-cell cell-info">
-		<div class="info-desc">7/22 (Wed), Dinner</div>              
-		<div class="info-title">THE BEACH</div>
-	      
+              <div class="info-desc">7/22 (Wed), Dinner</div>              
+              <div class="info-title">THE BEACH</div>
             </div>
             <div class="visit-cell cell-arrow">
               <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
@@ -296,16 +264,14 @@
           </div>
         </a>
 
-       <a href="https://www.savoey.co.th/zh-hans/" class="visit-item-link">
+        <a href="https://www.savoey.co.th/zh-hans/" class="visit-item-link">
           <div class="visit-item">
             <div class="visit-cell cell-logo">
-               
+              <span class="big-restaurant-icon">🦀</span>
             </div>
-
             <div class="visit-cell cell-info">
-		<div class="info-desc">7/23 (Thur), Dinner (與參訪對象餐敍)</div>              
-		<div class="info-title">SAVOEY上味泰</div>
-	      
+              <div class="info-desc">7/23 (Thur), Dinner (與參訪對象餐敍)</div>              
+              <div class="info-title">SAVOEY上味泰</div>
             </div>
             <div class="visit-cell cell-arrow">
               <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
@@ -313,17 +279,14 @@
           </div>
         </a>
 
-       <a href="https://margaret.tw/post-42963457/" class="visit-item-link">
+        <a href="https://margaret.tw/post-42963457/" class="visit-item-link">
           <div class="visit-item">
             <div class="visit-cell cell-logo">
-               
+              <span class="big-restaurant-icon">🚢</span>
             </div>
-
             <div class="visit-cell cell-info">
-				
-		<div class="info-desc">7/24 (Fri), Dinner</div>              
-		<div class="info-title">富裕號夜遊昭披耶河</div>
-	      
+              <div class="info-desc">7/24 (Fri), Dinner</div>              
+              <div class="info-title">富裕號夜遊昭披耶河</div>
             </div>
             <div class="visit-cell cell-arrow">
               <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
@@ -336,21 +299,5 @@
 
   </div>
 
-  <script>
-    // Tab 切換邏輯控制
-    const tabs = document.querySelectorAll('.tab-button');
-    const contents = document.querySelectorAll('.tab-content');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-
-        tab.classList.add('active');
-        const targetId = tab.getAttribute('data-target');
-        document.getElementById(targetId).classList.add('active');
-      });
-    });
-  </script>
 </body>
 </html>
