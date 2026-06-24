@@ -1,255 +1,353 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.6, minimum-scale=0.5, user-scalable=yes">
-    <title>Hotels & Accommodations</title>
-    <style>
-        /* 全域盒模型 */
-        *, *::before, *::after { 
-            box-sizing: border-box; 
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+  <title>Hotels & Accommodations</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      display: block;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+      color: #333333;
+    }
 
-        /* 畫布背景與置中 */
-        body {
-            display: block;
-            margin: 0;
-            padding: 20px 10px;
-            background-color: #f5f5f5;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-            color: #333333;
-        }
+    /* 懸浮首頁按鈕 */
+    .floating-home-link {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+    .floating-home-link:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+    }
+    .floating-home-link svg {
+      width: 26px;
+      height: 26px;
+      fill: #C55A11;
+      transition: fill 0.2s ease;
+    }
+    .floating-home-link:hover svg {
+      fill: #0076cc;
+    }
 
-        /* 主容器：獨立實體畫布（已加入 margin-top 避免遮擋） */
-        .page-container {
-            margin: 60px auto 0 auto; /* 調整上方外邊距，預留空間給左上角首頁按鈕 */
-            width: fit-content;
-            max-width: 100%;
-            background-color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-radius: 8px;
-            padding: 30px;
-            /* 水平安全鎖 */
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
+    /* 主容器 */
+    .page-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 16px 48px;
+    }
 
-        /* 懸浮首頁按鈕基礎樣式 */
-        .floating-home-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80px;
-            height: 80px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            text-decoration: none;
-        }
+    /* 頁面標題 */
+    .page-title-wrap {
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .page-title {
+      display: inline-block;
+      font-size: 32px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #0076cc 30%, #e8651a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+    .hotel-tip {
+      font-size: 13px;
+      color: #888888;
+      text-align: center;
+      margin-bottom: 28px;
+    }
 
-        /* 懸停動態放大效果 (外圓同步放大至 88px) */
-        .floating-home-link:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+    /* 飯店區塊 */
+    .hotel-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
 
-        /* 內部首頁 SVG 圖標樣式 */
-        .floating-home-link svg {
-            width: 40px;
-            height: 40px;
-            fill: #C55A11;
-            transition: fill 0.2s ease;
-        }
+    /* 飯店卡片外框 */
+    .hotel-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+      background: #ffffff;
+    }
 
-        /* 懸停時圖標變更為藍位提示 */
-        .floating-home-link:hover svg {
-            fill: #0076cc;
-        }
+    /* 卡片頂部色彩橫幅 */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -25px;
+      right: -25px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0.15;
+    }
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: -35px;
+      left: 20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0.10;
+    }
+    .singapore-card .card-header {
+      background: linear-gradient(135deg, #003f6e 0%, #005fa3 40%, #0076cc 70%, #1a8fe0 100%);
+    }
+    .thailand-card .card-header {
+      background: linear-gradient(135deg, #6b2200 0%, #a33d0a 35%, #c04d10 65%, #e8651a 100%);
+    }
+    .card-header-icon {
+      font-size: 28px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+    }
+    .card-header-label {
+      font-size: 26px;
+      font-weight: 800;
+      font-style: italic;
+      color: #ffffff;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
 
-        /* 頂部標題 */
-        .page-title {
-            font-size: 32pt;
-            font-weight: bold;
-            color: #c85a17;
-            margin-top: 0;
-            margin-bottom: 10px; /* 稍微縮小下邊距以留空間給提示字 */
-            text-align: center;
-        }
+    /* 卡片主體 */
+    .card-body {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 20px;
+    }
 
-        /* 提示文字樣式 */
-        .hotel-tip {
-            font-size: 13pt;
-            color: #666666;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    /* 飯店圖片 */
+    .hotel-link {
+      display: block;
+      flex-shrink: 0;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .hotel-link:hover {
+      transform: scale(1.04);
+    }
+    .hotel-link:active {
+      transform: scale(0.97);
+    }
+    .hotel-image {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    }
 
-        /* 飯店資訊區塊 */
-        .hotel-section {
-            margin-bottom: 30px;
-        }
+    /* 飯店文字資訊 */
+    .hotel-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .hotel-name {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin: 0 0 8px 0;
+      word-break: break-word;
+    }
+    .singapore-card .hotel-name {
+      color: #004f8a;
+    }
+    .thailand-card .hotel-name {
+      color: #8a3200;
+    }
+    .hotel-details {
+      font-size: 13px;
+      line-height: 1.65;
+      color: #555555;
+      margin: 0;
+    }
 
-        .hotel-card {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+    /* 分隔線 */
+    .section-divider {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #d0d7e0, transparent);
+      margin: 8px 0 32px;
+    }
 
-        .hotel-link {
-            display: block;
-            flex-shrink: 0;
-            text-decoration: none;
-            transition: transform 0.2s ease;
-        }
+    /* 名單區塊標題 */
+    .roster-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #333;
+      margin: 0 0 14px 0;
+      padding-left: 4px;
+      border-left: 5px solid #c04d10;
+      padding-left: 12px;
+    }
 
-        .hotel-link:hover {
-            transform: scale(1.02);
-        }
-
-        .hotel-image {
-            width: 130px;
-            height: 130px;
-            object-fit: cover;
-            border-radius: 25px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .hotel-info {
-            margin-left: 20px;
-        }
-
-        .hotel-name {
-            font-size: 20pt;
-            font-weight: bold;
-            color: #000000;
-            margin: 0 0 8px 0;
-        }
-
-        .hotel-details {
-            font-size: 13pt;
-            line-height: 1.5;
-            color: #333333;
-            margin: 0;
-        }
-
-        /* 名單表格結構 */
-        .roster-table {
-            border-collapse: separate;
-            border-spacing: 15px;
-            width: auto;
-            min-width: 650px;
-            margin-top: 10px;
-        }
-
-        .roster-table td {
-            width: 50%;
-            height: 72px;
-            background-color: #fbebe1;
-            border: 2px solid #d97736;
-            border-radius: 4px;
-            padding: 10px 15px;
-            text-align: center;
-            vertical-align: middle; /* 所有格子內的文字垂直置中對齊 */
-            font-size: 15pt;
-            font-weight: 500;
-            color: #000000;
-            white-space: pre-line; /* 支援內容換行 */
-            line-height: 1.4;
-        }
-        
-        .roster-table td.empty-cell {
-            background-color: transparent;
-            border: none;
-        }
-    </style>
+    /* 名單表格 */
+    .roster-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .roster-cell {
+      background: linear-gradient(135deg, #fff5ee 0%, #fde8d4 100%);
+      border: 2px solid #d97736;
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      white-space: pre-line;
+      line-height: 1.5;
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(217, 119, 54, 0.12);
+    }
+    .roster-cell.empty-cell {
+      background: transparent;
+      border: 2px dashed #ddd;
+      box-shadow: none;
+      color: transparent;
+    }
+  </style>
 </head>
 <body>
+  <a href="index.html" class="floating-home-link" title="返回首頁">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
 
-    <!-- 懸浮首頁按鈕 (置於 body 最上方) -->
-    <a href="index.html" class="floating-home-link" title="返回首頁">
-        <svg viewBox="0 0 24 24">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-        </svg>
-    </a>
+  <div class="page-container">
 
-    <div class="page-container">
-        <h1 class="page-title">Hotels</h1>
+    <div class="page-title-wrap">
+      <h1 class="page-title">Hotels</h1>
+    </div>
+    <div class="hotel-tip">點擊照片可進入飯店官網</div>
 
-        <!-- 新增的提示文字 -->
-        <div class="hotel-tip">點擊照片可進入飯店官網</div>
+    <div class="hotel-section">
 
-        <div class="hotel-section">
-            <div class="hotel-card">
-                <a href="https://www.orchidhotel.com.sg/" target="_blank" class="hotel-link" title="前往新加坡蘭花飯店官網">
-                    <img src="Orchid.jpg" alt="Orchid Hotel Singapore" class="hotel-image">
-                </a>
-                <div class="hotel-info">
-                    <h2 class="hotel-name">Orchid Hotel Singapore</h2>
-                    <p class="hotel-details">
-                        1 Tras Link (Tanjong Pagar), Singapore 078867<br>
-                        TEL : +65 6818 6818
-                    </p>
-                </div>
-            </div>
-
-            <div class="hotel-card">
-                <a href="https://www.marriott.com/en-us/hotels/bkkqp-bangkok-marriott-marquis-queens-park/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0" target="_blank" class="hotel-link" title="前往曼谷皇后公園萬豪侯爵酒店官網">
-                    <img src="Hyatt.jpg" alt="Grand Hyatt Erawan Bangkok" class="hotel-image">
-                </a>
-                <div class="hotel-info">
-                    <h2 class="hotel-name">Bangkok Marriott Marquis Queen's Park</h2>
-                    <p class="hotel-details">
-                        199 Sukhumvit Alley 22, Khlong Tan, Khlong Toei, Bangkok 10110<br>
-                        TEL : +66 2 059 5555
-                    </p>
-                </div>
-            </div>
+      <!-- Singapore -->
+      <div class="hotel-card singapore-card">
+        <div class="card-header">
+          <span class="card-header-icon"></span>
+          <span class="card-header-label">Singapore</span>
         </div>
+        <div class="card-body">
+          <a href="https://www.orchidhotel.com.sg/" target="_blank" class="hotel-link" title="前往新加坡蘭花飯店官網">
+            <img src="Orchid.jpg" alt="Orchid Hotel Singapore" class="hotel-image">
+          </a>
+          <div class="hotel-info">
+            <h2 class="hotel-name">Orchid Hotel Singapore</h2>
+            <p class="hotel-details">
+              1 Tras Link (Tanjong Pagar)<br>
+              Singapore 078867<br>
+              TEL : +65 6818 6818
+            </p>
+          </div>
+        </div>
+      </div>
 
-        <table class="roster-table">
-            <tr>
-                <td>葉錦徽</td>
-                <td>沈建文</td>
-            </tr>
-            <tr>
-                <td>廖聰志</td>
-                <td>章廣榮</td>
-            </tr>
-            <tr>
-                <td>張肇驛</td>
-                <td>吳懿展</td>
-            </tr>
-            <tr>
-                <td>姜玫君
-簡雅惠
-陳玠錳</td>
-                <td>鍾曜宇 (4人)
-2房、大床</td>
-            </tr>
-            <tr>
-                <td>陳俊安+郭靜萍
-(大床)</td>
-                <td>門志漢 (7/18-26)
-高長翰 (7/19-26)</td>
-            </tr>
-            <tr>
-                <td>曾世翰
-施元中</td>
-                <td>胡書瑋 (7/18-25)
-鄭竣升 (7/19-26)</td>
-            </tr>
-            <tr>
-                <td>郭天立
-Somebody</td>
-                <td class="empty-cell"></td>
-            </tr>
-        </table>
+      <!-- Thailand -->
+      <div class="hotel-card thailand-card">
+        <div class="card-header">
+          <span class="card-header-icon"></span>
+          <span class="card-header-label">Thailand</span>
+        </div>
+        <div class="card-body">
+          <a href="https://www.marriott.com/en-us/hotels/bkkqp-bangkok-marriott-marquis-queens-park/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0" target="_blank" class="hotel-link" title="前往曼谷皇后公園萬豪侯爵酒店官網">
+            <img src="Hyatt.jpg" alt="Grand Hyatt Erawan Bangkok" class="hotel-image">
+          </a>
+          <div class="hotel-info">
+            <h2 class="hotel-name">Bangkok Marriott Marquis Queen's Park</h2>
+            <p class="hotel-details">
+              199 Sukhumvit Alley 22, Khlong Tan<br>
+              Khlong Toei, Bangkok 10110<br>
+              TEL : +66 2 059 5555
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
 
+    <hr class="section-divider">
+
+    <p class="roster-title">房間名單</p>
+    <div class="roster-grid">
+      <div class="roster-cell">葉錦徽</div>
+      <div class="roster-cell">沈建文</div>
+
+      <div class="roster-cell">廖聰志</div>
+      <div class="roster-cell">章廣榮</div>
+
+      <div class="roster-cell">張肇驛</div>
+      <div class="roster-cell">吳懿展</div>
+
+      <div class="roster-cell">姜玫君
+簡雅惠
+陳玠錳</div>
+      <div class="roster-cell">鍾曜宇 (4人)
+2房、大床</div>
+
+      <div class="roster-cell">陳俊安+郭靜萍
+(大床)</div>
+      <div class="roster-cell">門志漢 (7/18-26)
+高長翰 (7/19-26)</div>
+
+      <div class="roster-cell">曾世翰
+施元中</div>
+      <div class="roster-cell">胡書瑋 (7/18-25)
+鄭竣升 (7/19-26)</div>
+
+      <div class="roster-cell">郭天立
+Somebody</div>
+      <div class="roster-cell empty-cell"></div>
+    </div>
+
+  </div>
 </body>
 </html>
