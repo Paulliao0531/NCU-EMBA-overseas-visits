@@ -61,7 +61,7 @@
       margin-bottom: 36px;
       display: flex;
       gap: 28px;
-      align-items: flex-start;
+      align-items: center;
       position: relative;
       overflow: hidden;
     }
@@ -78,24 +78,20 @@
 
     .hero-logo {
       flex-shrink: 0;
-      width: 160px;
+      width: 140px;
     }
 
     .logo {
       width: 100%;
-      border-radius: 14px;
-      background: #fff;
+      border-radius: 18px;
       display: block;
       box-shadow:
-        0 8px 24px rgba(0,0,0,0.5),
-        0 20px 40px rgba(0,0,0,0.3);
-      animation: float 3.6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%   { transform: translateY(0px);   box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 20px 40px rgba(0,0,0,0.3); }
-      50%  { transform: translateY(-10px); box-shadow: 0 18px 36px rgba(0,0,0,0.4), 0 32px 56px rgba(0,0,0,0.2); }
-      100% { transform: translateY(0px);   box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 20px 40px rgba(0,0,0,0.3); }
+        0 2px 0 rgba(255,120,80,0.4) inset,
+        -1px 0 0 rgba(255,100,60,0.3) inset,
+        4px 6px 0 rgba(80,0,0,0.5),
+        8px 12px 20px rgba(120,10,10,0.4),
+        14px 20px 36px rgba(0,0,0,0.35);
+      transform: perspective(400px) rotateX(2deg) rotateY(-2deg);
     }
 
     .hero-content {
@@ -153,7 +149,7 @@
       content: "";
       flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, rgba(180,20,20,0.7), rgba(120,0,0,0.3), transparent);
+      background: linear-gradient(90deg, #c8960c, #a0510a, #7a1010, transparent);
     }
 
     /* ── Menu Grid ── */
@@ -296,7 +292,7 @@
       }
 
       .hero-logo {
-        width: 120px;
+        width: 100px;
       }
 
       .title {
