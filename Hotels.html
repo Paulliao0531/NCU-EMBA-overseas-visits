@@ -12,9 +12,9 @@
       display: block;
       margin: 0;
       padding: 0;
-      background-color: #f0f4f8;
+      background-color: #0f1117;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-      color: #333333;
+      color: #d0d0d0;
     }
 
     /* 懸浮首頁按鈕 */
@@ -28,24 +28,24 @@
       justify-content: center;
       width: 52px;
       height: 52px;
-      background-color: #ffffff;
+      background-color: #1e2130;
       border-radius: 50%;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-decoration: none;
     }
     .floating-home-link:hover {
       transform: scale(1.1);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
     }
     .floating-home-link svg {
       width: 26px;
       height: 26px;
-      fill: #C55A11;
+      fill: #e8651a;
       transition: fill 0.2s ease;
     }
     .floating-home-link:hover svg {
-      fill: #0076cc;
+      fill: #4da6f5;
     }
 
     /* 主容器 */
@@ -74,7 +74,7 @@
     }
     .hotel-tip {
       font-size: 13px;
-      color: #888888;
+      color: #666888;
       text-align: center;
       margin-bottom: 28px;
     }
@@ -91,8 +91,8 @@
     .hotel-card {
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
-      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      background: #1e2130;
     }
 
     /* 卡片頂部色彩橫幅 */
@@ -158,7 +158,7 @@
       padding: 20px;
     }
 
-    /* 飯店圖片 */
+    /* 飯店圖示 */
     .hotel-link {
       display: block;
       flex-shrink: 0;
@@ -171,12 +171,22 @@
     .hotel-link:active {
       transform: scale(0.97);
     }
-    .hotel-image {
+    .hotel-icon {
       width: 110px;
       height: 110px;
-      object-fit: cover;
       border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      line-height: 1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .singapore-card .hotel-icon {
+      background: linear-gradient(135deg, #0d2a40 0%, #103550 100%);
+    }
+    .thailand-card .hotel-icon {
+      background: linear-gradient(135deg, #2a1800 0%, #3a2000 100%);
     }
 
     /* 飯店文字資訊 */
@@ -192,15 +202,15 @@
       word-break: break-word;
     }
     .singapore-card .hotel-name {
-      color: #004f8a;
+      color: #4da6f5;
     }
     .thailand-card .hotel-name {
-      color: #8a3200;
+      color: #e8651a;
     }
     .hotel-details {
       font-size: 13px;
       line-height: 1.65;
-      color: #555555;
+      color: #8a8fa8;
       margin: 0;
     }
 
@@ -208,7 +218,7 @@
     .section-divider {
       border: 0;
       height: 2px;
-      background: linear-gradient(to right, transparent, #d0d7e0, transparent);
+      background: linear-gradient(to right, transparent, #2e3450, transparent);
       margin: 8px 0 32px;
     }
 
@@ -216,10 +226,10 @@
     .roster-title {
       font-size: 18px;
       font-weight: 800;
-      color: #333;
+      color: #d0d0d0;
       margin: 0 0 14px 0;
       padding-left: 4px;
-      border-left: 5px solid #c04d10;
+      border-left: 5px solid #e8651a;
       padding-left: 12px;
     }
 
@@ -230,25 +240,25 @@
       gap: 10px;
     }
     .roster-cell {
-      background: linear-gradient(135deg, #fff5ee 0%, #fde8d4 100%);
-      border: 2px solid #d97736;
+      background: linear-gradient(135deg, #1e2130 0%, #252a3a 100%);
+      border: 2px solid #b05a20;
       border-radius: 12px;
       padding: 14px 12px;
       text-align: center;
       font-size: 16px;
       font-weight: 600;
-      color: #1a1a1a;
+      color: #e0e0e0;
       white-space: pre-line;
       line-height: 1.5;
       min-height: 62px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(217, 119, 54, 0.12);
+      box-shadow: 0 2px 6px rgba(176, 90, 32, 0.2);
     }
     .roster-cell.empty-cell {
       background: transparent;
-      border: 2px dashed #ddd;
+      border: 2px dashed #2e3450;
       box-shadow: none;
       color: transparent;
     }
@@ -278,7 +288,7 @@
         </div>
         <div class="card-body">
           <a href="https://www.orchidhotel.com.sg/" target="_blank" class="hotel-link" title="前往新加坡蘭花飯店官網">
-            <img src="Orchid.jpg" alt="Orchid Hotel Singapore" class="hotel-image">
+            <div class="hotel-icon">🦁</div>
           </a>
           <div class="hotel-info">
             <h2 class="hotel-name">Orchid Hotel Singapore</h2>
@@ -299,7 +309,7 @@
         </div>
         <div class="card-body">
           <a href="https://www.marriott.com/en-us/hotels/bkkqp-bangkok-marriott-marquis-queens-park/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0" target="_blank" class="hotel-link" title="前往曼谷皇后公園萬豪侯爵酒店官網">
-            <img src="Hyatt.jpg" alt="Grand Hyatt Erawan Bangkok" class="hotel-image">
+            <div class="hotel-icon">🐘</div>
           </a>
           <div class="hotel-info">
             <h2 class="hotel-name">Bangkok Marriott Marquis Queen's Park</h2>
