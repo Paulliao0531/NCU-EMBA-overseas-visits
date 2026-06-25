@@ -14,28 +14,66 @@
     }
 
     body {
-      background: linear-gradient(180deg, #fff7ed 0%, #ffe4e6 45%, #e0f2fe 100%);
-      color: #1c1f26;
+      background: #0a0e1a;
+      color: #e2e8f0;
       min-height: 100vh;
+    }
+
+    /* ── Ambient glow background ── */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .container {
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
-      padding: 32px 24px 48px;
+      padding: 32px 24px 56px;
+      position: relative;
+      z-index: 1;
     }
 
     /* ── Hero ── */
     .hero {
-      background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
+      background: linear-gradient(135deg, #141827 0%, #1a1f35 100%);
       border-radius: 24px;
       padding: 32px 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      margin-bottom: 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+      margin-bottom: 36px;
       display: flex;
       gap: 28px;
       align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #f97316, #ec4899, #3b82f6, #06b6d4);
     }
 
     .hero-logo {
@@ -48,6 +86,7 @@
       border-radius: 14px;
       background: #fff;
       display: block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
     .hero-content {
@@ -58,55 +97,77 @@
       font-size: 32px;
       font-weight: 800;
       line-height: 1.2;
-      color: #111827;
+      color: #f1f5f9;
       margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
 
     .subtitle {
       font-size: 15px;
-      color: #6b7280;
-      line-height: 1.6;
+      color: #94a3b8;
+      line-height: 1.7;
     }
 
     .info-card {
       margin-top: 20px;
       padding: 16px 20px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(249,115,22,0.85) 0%, rgba(236,72,153,0.85) 100%);
       color: #ffffff;
+      box-shadow: 0 4px 20px rgba(249,115,22,0.25);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
     }
 
     .info-card h3 {
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 600;
-      line-height: 1.8;
-      letter-spacing: 0.5px;
+      line-height: 1.9;
+      letter-spacing: 0.3px;
     }
 
-    /* ── Menu ── */
+    /* ── Section Title ── */
     .section-title {
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 16px;
-      color: #111827;
+      color: #94a3b8;
       padding-left: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(148,163,184,0.3), transparent);
+    }
+
+    /* ── Menu Grid ── */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 14px;
     }
 
     .menu-btn {
-      background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
-      border-radius: 20px;
+      background: linear-gradient(160deg, #1e2540 0%, #141827 60%, #0f1220 100%);
+      border-radius: 18px;
       padding: 22px 16px;
       text-decoration: none;
-      color: #111827;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      transition: all 0.25s ease;
-      border: 1px solid rgba(0,0,0,0.04);
+      color: #e2e8f0;
+      box-shadow:
+        0 2px 0 rgba(255,255,255,0.06) inset,
+        0 -1px 0 rgba(0,0,0,0.6) inset,
+        1px 0 0 rgba(255,255,255,0.04) inset,
+        6px 8px 20px rgba(0,0,0,0.55),
+        2px 3px 6px rgba(0,0,0,0.4),
+        0 1px 0 rgba(255,255,255,0.04);
+      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -114,6 +175,10 @@
       min-height: 110px;
       position: relative;
       overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      border-left: 1px solid rgba(255,255,255,0.06);
+      border-right: 1px solid rgba(0,0,0,0.4);
+      border-bottom: 1px solid rgba(0,0,0,0.5);
     }
 
     .menu-btn::before {
@@ -122,13 +187,55 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 5px;
+      height: 4px;
       background: linear-gradient(90deg, #f97316, #ec4899, #3b82f6);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .menu-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(249,115,22,0.07), rgba(59,130,246,0.07));
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
 
     .menu-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,0.08) inset,
+        0 -1px 0 rgba(0,0,0,0.6) inset,
+        1px 0 0 rgba(255,255,255,0.05) inset,
+        10px 16px 32px rgba(0,0,0,0.65),
+        4px 6px 12px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(249,115,22,0.2);
+    }
+
+    .menu-btn:hover::before {
+      opacity: 1;
+    }
+
+    .menu-btn:hover::after {
+      opacity: 1;
+    }
+
+    .menu-btn:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04) inset,
+        0 -2px 4px rgba(0,0,0,0.5) inset,
+        2px 3px 8px rgba(0,0,0,0.4);
+    }
+
+    .menu-btn:hover .menu-title {
+      color: #f8fafc;
+    }
+
+    .menu-btn:hover .menu-icon {
+      color: #fb923c;
     }
 
     .menu-title {
@@ -138,27 +245,39 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      color: #f1f5f9;
+      transition: color 0.25s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-icon {
+      font-size: 18px;
+      color: #64748b;
+      transition: color 0.25s ease;
     }
 
     .menu-desc {
-      font-size: 13px;
-      color: #6b7280;
+      font-size: 16px;
+      color: #64748b;
       line-height: 1.5;
+      position: relative;
+      z-index: 1;
     }
 
     /* ── Footer ── */
     .footer {
       text-align: center;
-      margin-top: 36px;
+      margin-top: 40px;
       font-size: 12px;
-      color: #6b7280;
+      color: #334155;
       line-height: 1.8;
     }
 
     /* ── Tablet ── */
     @media (max-width: 768px) {
       .container {
-        padding: 20px 16px 40px;
+        padding: 20px 16px 48px;
       }
 
       .hero {
@@ -168,7 +287,7 @@
       }
 
       .hero-logo {
-        width: 100%;
+        width: 120px;
       }
 
       .title {
@@ -177,7 +296,7 @@
 
       .menu-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        gap: 12px;
       }
     }
 
@@ -187,13 +306,26 @@
         font-size: 24px;
       }
 
+      .subtitle {
+        font-size: 14px;
+      }
+
+      .info-card h3 {
+        font-size: 14px;
+      }
+
       .menu-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
       }
 
       .menu-btn {
         min-height: auto;
-        padding: 18px 14px;
+        padding: 16px 14px;
+      }
+
+      .menu-title {
+        font-size: 17px;
       }
     }
   </style>
@@ -213,7 +345,7 @@
         <div class="info-card">
           <h3>重要活動：<br>
             行前報告：6/13 (六)，222教室+視訊<br>
-            參訪期間：7/20-7/24<br>
+            參訪期間：7/20–7/24<br>
             回國報告：8/16 (日)
           </h3>
         </div>
@@ -224,62 +356,62 @@
 
     <div class="menu-grid">
       <a class="menu-btn" href="Itinerary.html">
-        <div class="menu-title"><i class="fa-solid fa-calendar-days"></i> 行程總覽</div>
+        <div class="menu-title"><i class="fa-solid fa-calendar-days menu-icon"></i> 行程總覽</div>
         <div class="menu-desc">每日活動、時間與移動安排</div>
       </a>
 
       <a class="menu-btn" href="#">
-        <div class="menu-title"><i class="fa-regular fa-address-book"></i> 連絡人資訊</div>
+        <div class="menu-title"><i class="fa-regular fa-address-book menu-icon"></i> 連絡人資訊</div>
         <div class="menu-desc">對方連絡窗口</div>
       </a>
 
       <a class="menu-btn" href="Contacts.html">
-        <div class="menu-title"><i class="fa-solid fa-users"></i> 成員名單</div>
+        <div class="menu-title"><i class="fa-solid fa-users menu-icon"></i> 成員名單</div>
         <div class="menu-desc">團員資訊與工作分配</div>
       </a>
 
       <a class="menu-btn" href="Companies.html">
-        <div class="menu-title"><i class="fa-solid fa-building"></i> 參訪單位</div>
+        <div class="menu-title"><i class="fa-solid fa-building menu-icon"></i> 參訪單位</div>
         <div class="menu-desc">企業、學校與交流機構資訊</div>
       </a>
 
       <a class="menu-btn" href="Groups.html">
-        <div class="menu-title"><i class="fa-solid fa-people-group"></i> 報告分組</div>
+        <div class="menu-title"><i class="fa-solid fa-people-group menu-icon"></i> 報告分組</div>
         <div class="menu-desc">行前與回國報告分組資訊</div>
       </a>
 
       <a class="menu-btn" href="https://drive.google.com/drive/folders/1UyCHj2HWSbYoq9BVgJ2vJwCL6uCZuVXs?usp=sharing">
-        <div class="menu-title"><i class="fa-solid fa-file-lines"></i> 行前報告</div>
+        <div class="menu-title"><i class="fa-solid fa-file-lines menu-icon"></i> 行前報告</div>
         <div class="menu-desc">報告資料夾連結</div>
       </a>
 
       <a class="menu-btn" href="Arrival.html">
-        <div class="menu-title"><i class="fa-solid fa-handshake"></i> 接機</div>
+        <div class="menu-title"><i class="fa-solid fa-handshake menu-icon"></i> 接機</div>
         <div class="menu-desc">去程航班與接機安排</div>
       </a>
 
       <a class="menu-btn" href="Departure.html">
-        <div class="menu-title"><i class="fa-solid fa-car-side"></i> 送機</div>
+        <div class="menu-title"><i class="fa-solid fa-car-side menu-icon"></i> 送機</div>
         <div class="menu-desc">回程航班與送機安排</div>
       </a>
 
       <a class="menu-btn" href="Hotels.html">
-        <div class="menu-title"><i class="fa-solid fa-hotel"></i> 住宿</div>
+        <div class="menu-title"><i class="fa-solid fa-hotel menu-icon"></i> 住宿</div>
         <div class="menu-desc">房間分配</div>
       </a>
 
       <a class="menu-btn" href="Restaurants.html">
-        <div class="menu-title"><i class="fa-solid fa-utensils"></i> 餐廳</div>
+        <div class="menu-title"><i class="fa-solid fa-utensils menu-icon"></i> 餐廳</div>
         <div class="menu-desc">聚餐地點</div>
       </a>
 
       <a class="menu-btn" href="小本本.pdf">
-        <div class="menu-title"><i class="fa-solid fa-book"></i> 小本本</div>
+        <div class="menu-title"><i class="fa-solid fa-book menu-icon"></i> 小本本</div>
         <div class="menu-desc">企業參訪手冊電子檔</div>
       </a>
 
-      <a class="menu-btn" href="Reference.html">
-        <div class="menu-title"><i class="fa-solid fa-circle-info"></i> 參考資訊</div>
+      <a class="menu-btn" href="#">
+        <div class="menu-title"><i class="fa-solid fa-circle-info menu-icon"></i> 其他資訊</div>
         <div class="menu-desc">備註事項</div>
       </a>
     </div>
