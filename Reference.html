@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+  <title>參考資訊</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      display: block;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+    }
+
+    /* 懸浮首頁按鈕 */
+    .home-link {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+    .home-link:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+    }
+    .home-link svg {
+      width: 26px;
+      height: 26px;
+      fill: #C55A11;
+      transition: fill 0.2s ease;
+    }
+    .home-link:hover svg {
+      fill: #0076cc;
+    }
+
+    /* 主容器 */
+    .page-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 16px 48px;
+    }
+
+    /* 頁面標題 */
+    .page-title-wrap {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .page-title {
+      display: inline-block;
+      font-size: 30px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 50%, #1a3a5c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+
+    /* 連結清單 */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* 每一條資訊卡片 */
+    .info-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      text-decoration: none;
+      border-radius: 18px;
+      padding: 22px 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .info-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+    .info-link:active {
+      transform: scale(0.98);
+    }
+
+    /* 光暈裝飾 */
+    .info-link::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .info-link::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 10px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* 新加坡條目：深藍漸層 */
+    .item-sg {
+      background: linear-gradient(135deg, #002d54 0%, #004f8a 45%, #0069b4 100%);
+    }
+
+    /* 泰國條目：深橙漸層 */
+    .item-th {
+      background: linear-gradient(135deg, #5a1800 0%, #8c3200 45%, #b84a0a 100%);
+    }
+
+    /* Reserved 條目：深綠漸層 */
+    .item-reserved {
+      background: linear-gradient(135deg, #0a2e14 0%, #155224 45%, #1e7a36 100%);
+    }
+
+    /* 卡片文字 */
+    .link-text {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+    .link-country {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 5px;
+    }
+    .link-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.35;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 箭頭 */
+    .link-arrow {
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .link-arrow svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.75);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-link" title="返回首頁">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
+
+  <div class="page-container">
+
+    <div class="page-title-wrap">
+      <h1 class="page-title">參考資訊</h1>
+    </div>
+
+    <div class="link-list">
+
+      <a href="https://eservices.ica.gov.sg/sgarrivalcard/" target="_blank" class="info-link item-sg">
+        <div class="link-text">
+          <div class="link-country">Singapore</div>
+          <div class="link-title">電子入境卡申請官網</div>
+        </div>
+        <div class="link-arrow">
+          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://www.boca.gov.tw/sp-foof-countrycp-01-10-fa952-1.html" target="_blank" class="info-link item-sg">
+        <div class="link-text">
+          <div class="link-country">Singapore</div>
+          <div class="link-title">入境需知</div>
+        </div>
+        <div class="link-arrow">
+          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://tdac.immigration.go.th/arrival-card/#/home" target="_blank" class="info-link item-th">
+        <div class="link-text">
+          <div class="link-country">Thailand</div>
+          <div class="link-title">電子入境卡申請官網</div>
+        </div>
+        <div class="link-arrow">
+          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="https://www.boca.gov.tw/sp-foof-countrycp-01-24-dec45-1.html" target="_blank" class="info-link item-th">
+        <div class="link-text">
+          <div class="link-country">Thailand</div>
+          <div class="link-title">入境需知</div>
+        </div>
+        <div class="link-arrow">
+          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <a href="#" class="info-link item-reserved">
+        <div class="link-text">
+          <div class="link-country">Reserved</div>
+          <div class="link-title">Reserved</div>
+        </div>
+        <div class="link-arrow">
+          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</body>
+</html>
