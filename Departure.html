@@ -116,7 +116,7 @@
             border-collapse: collapse;
             width: 100%;
             min-width: 560px;
-            font-size: 10.5pt;
+            font-size: 14.5pt;
         }
 
         /* 表頭 */
@@ -130,7 +130,7 @@
             padding: 10px 12px;
             text-align: center;
             letter-spacing: 0.5px;
-            font-size: 10pt;
+            font-size: 14pt;
             white-space: nowrap;
         }
 
@@ -146,6 +146,12 @@
         /* 偶數列微淡底色 */
         tbody tr:nth-child(even) td {
             background-color: #FFF5E0;
+        }
+        tbody tr.highlight-row td {
+            background-color: #FFF5E0;
+        }
+        tbody tr.white-row td {
+            background-color: #ffffff;
         }
 
         /* 對齊 */
@@ -163,7 +169,7 @@
             text-align: center;
             font-weight: 700;
             color: #5a2d0c;
-            font-size: 10.5pt;
+            font-size: 14.5pt;
             white-space: nowrap;
         }
 
@@ -289,14 +295,14 @@
                             <td class="align-left no-border-bottom">陳俊安、郭靜萍</td>
                             <td class="align-left">鄭竣升</td>
                         </tr>
-                        <tr>
+                        <tr class="highlight-row">
                             <td class="flight-badge">BR 76</td>
                             <td class="time-cell">15:20</td>
                             <td class="count-cell">1</td>
                             <td class="align-left no-border-top">高長翰</td>
                             <td class="align-left"></td>
                         </tr>
-                        <tr>
+                        <tr class="white-row">
                             <td class="flight-badge">BR 68</td>
                             <td class="time-cell">16:45</td>
                             <td class="count-cell">7</td>

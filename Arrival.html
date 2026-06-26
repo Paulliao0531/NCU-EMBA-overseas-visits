@@ -107,7 +107,7 @@
             border-collapse: collapse;
             width: 100%;
             min-width: 560px;
-            font-size: 10.5pt;
+            font-size: 14.5pt;
         }
         /* 表頭 */
         thead tr {
@@ -120,7 +120,7 @@
             padding: 10px 12px;
             text-align: center;
             letter-spacing: 0.5px;
-            font-size: 10pt;
+            font-size: 14pt;
             white-space: nowrap;
         }
         /* 資料列 */
@@ -134,6 +134,12 @@
         /* 偶數列微淡底色 */
         tbody tr:nth-child(even) td {
             background-color: #e8f0fe;
+        }
+        tbody tr.highlight-row td {
+            background-color: #e8f0fe;
+        }
+        tbody tr.white-row td {
+            background-color: #ffffff;
         }
         /* 對齊 */
         .text-center {
@@ -149,7 +155,7 @@
             text-align: center;
             font-weight: 700;
             color: #0d2b5e;
-            font-size: 10.5pt;
+            font-size: 14.5pt;
             white-space: nowrap;
         }
         /* 時間欄位 */
@@ -211,26 +217,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="flight-badge" rowspan="2">BR 215</td>
-                            <td class="time-cell" rowspan="2">13:55</td>
-                            <td class="count-cell" rowspan="2">8</td>
-                            <td class="text-left">章廣榮、張肇驛、吳懿展、
-胡書瑋</td>
-                            <td rowspan="2"></td>
+                        <tr class="highlight-row">
+                            <td class="flight-badge">BR 215</td>
+                            <td class="time-cell">13:55</td>
+                            <td class="count-cell">8</td>
+                            <td class="text-left">章廣榮、張肇驛、吳懿展<br>胡書瑋、門志漢、姜玫君<br>簡雅惠、陳玠錳</td>
+                            <td></td>
                         </tr>
-                        <tr>
-                            <td class="text-left">姜玫君、簡雅惠、陳玠錳、
-門志漢</td>
-                        </tr>
-                        <tr>
+                        <tr class="white-row">
                             <td class="flight-badge">CI 753</td>
                             <td class="time-cell">12:35</td>
                             <td class="count-cell">6</td>
                             <td class="text-left">鍾曜宇一家人 (4人), 17:00接</td>
                             <td class="text-left">曾世翰<br>施元中</td>
                         </tr>
-                        <tr>
+                        <tr class="highlight-row">
                             <td class="flight-badge">SQ 827</td>
                             <td class="time-cell">13:25</td>
                             <td class="count-cell">2</td>
@@ -257,14 +258,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr class="highlight-row">
                             <td class="flight-badge">CI 753</td>
                             <td class="time-cell">12:35</td>
                             <td class="count-cell">1</td>
                             <td class="text-left" style="border-bottom: none;">廖聰志</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr class="highlight-row">
                             <td class="flight-badge">BR 215</td>
                             <td class="time-cell">13:55</td>
                             <td class="count-cell">2</td>
