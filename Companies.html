@@ -13,7 +13,7 @@
       display: block;
       margin: 0;
       padding: 20px 10px;
-      background-color: #f5f5f5;
+      background: linear-gradient(160deg, #f2f6fb 0%, #eef1f7 45%, #f8f3ec 100%);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
@@ -26,8 +26,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 80px; /* 外圓寬度保持不變 */
-      height: 80px; /* 外圓高度保持不變 */
+      width: 80px;
+      height: 80px;
       background-color: #ffffff;
       border-radius: 50%;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
@@ -36,81 +36,132 @@
     }
 
     .home-link:hover {
-      transform: scale(1.1); /* 懸停時，外圓和Icon同步放大，外圓變為 88px */
+      transform: scale(1.1);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .home-link svg {
-      width: 40px; /* 已修改：加大50% (原本為26px) */
-      height: 40px; /* 已修改：加大50% (原本為26px) */
+      width: 40px;
+      height: 40px;
       fill: #C55A11;
       transition: fill 0.2s ease;
     }
 
     .home-link:hover svg {
-      fill: #0076cc; /* 滑過時轉為藍色提示 */
+      fill: #0076cc;
     }
 
-    /* 主畫布容器 - 調整上方內距避免內容與固定按鈕重疊 */
+    /* 主畫布容器 */
     .page-container {
       margin: 0 auto;
       width: fit-content;
       max-width: 100%;
       background-color: #ffffff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
       padding: 30px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      margin-top: 60px; /* 預留上方空間給首頁按鈕 */
+      margin-top: 60px;
     }
 
-    /* 分頁控制項 */
+    /* 分頁控制項：膠囊式切換 */
     .tab-control {
       display: flex;
-      gap: 10px;
-      margin-bottom: 25px;
-      border-bottom: 2px solid #e0e0e0;
-      padding-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 28px;
+      padding: 6px;
+      background-color: #eef1f6;
+      border-radius: 16px;
     }
 
     .tab-button {
+      flex: 1;
       padding: 10px 24px;
       font-size: 24px;
       font-weight: bold;
       border: none;
+      border-radius: 12px;
       background: none;
       cursor: pointer;
-      color: #666666;
+      color: #888888;
       transition: all 0.3s ease;
     }
 
     .tab-button.active[data-target="singapore"] {
-      color: #0076cc;
-      border-bottom: 3px solid #0076cc;
+      color: #ffffff;
+      background: linear-gradient(135deg, #0076cc, #2a9df4);
+      box-shadow: 0 6px 14px rgba(0, 118, 204, 0.35);
     }
 
     .tab-button.active[data-target="thailand"] {
-      color: #d65c19;
-      border-bottom: 3px solid #d65c19;
+      color: #ffffff;
+      background: linear-gradient(135deg, #d65c19, #f08a3c);
+      box-shadow: 0 6px 14px rgba(214, 92, 25, 0.35);
     }
 
-    /* 國家大標題 */
+    /* 國家標題橫幅 */
+    .country-banner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-radius: 18px;
+      padding: 20px 28px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .country-banner::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0.15;
+    }
+
+    .country-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 60px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0.1;
+    }
+
+    .singapore-theme .country-banner {
+      background: linear-gradient(135deg, #005fa3 0%, #0076cc 50%, #2a9df4 100%);
+    }
+
+    .thailand-theme .country-banner {
+      background: linear-gradient(135deg, #a33d0a 0%, #d65c19 50%, #f08a3c 100%);
+    }
+
+    .country-flag {
+      font-size: 42px;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+    }
+
     .country-title {
       font-size: 36px;
       font-weight: 800;
       font-style: italic;
-      margin-top: 0;
-      margin-bottom: 25px;
+      margin: 0;
       text-align: left;
-    }
-
-    .singapore-theme .country-title {
-      color: #0076cc;
-    }
-
-    .thailand-theme .country-title {
-      color: #d65c19;
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      position: relative;
+      z-index: 1;
     }
 
     /* 分頁內容顯示/隱藏 */
@@ -141,29 +192,56 @@
       align-items: center;
       width: 100%;
       border-radius: 16px;
-      padding: 24px 28px;
+      padding: 22px 26px;
       background-color: #ffffff;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       gap: 20px;
+      border: 1px solid #ececec;
+      border-left-width: 6px;
     }
 
     .visit-item:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
-    /* 依據國家別設定框線顏色 */
+    /* 依據國家別設定框線與陰影顏色 */
     .singapore-theme .visit-item {
-      border: 2px solid #0076cc;
+      border-left-color: #0076cc;
     }
     .singapore-theme .visit-item:hover {
-      box-shadow: 0 4px 12px rgba(0, 118, 204, 0.15);
+      box-shadow: 0 10px 24px rgba(0, 118, 204, 0.2);
+      border-color: #bfe0fb;
+      border-left-color: #0076cc;
     }
 
     .thailand-theme .visit-item {
-      border: 2px solid #d65c19;
+      border-left-color: #d65c19;
     }
     .thailand-theme .visit-item:hover {
-      box-shadow: 0 4px 12px rgba(214, 92, 25, 0.15);
+      box-shadow: 0 10px 24px rgba(214, 92, 25, 0.2);
+      border-color: #f6d3b8;
+      border-left-color: #d65c19;
+    }
+
+    /* 圓角圖示 */
+    .cell-icon {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .singapore-theme .cell-icon {
+      background: linear-gradient(135deg, #e6f4ff, #cde6fb);
+    }
+
+    .thailand-theme .cell-icon {
+      background: linear-gradient(135deg, #ffece0, #ffdcc2);
     }
 
     .cell-info {
@@ -189,13 +267,25 @@
 
     .cell-arrow {
       flex-shrink: 0;
-      width: 24px;
-      text-align: right;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .singapore-theme .cell-arrow {
+      background-color: #eaf5ff;
+    }
+
+    .thailand-theme .cell-arrow {
+      background-color: #fff1e8;
     }
 
     .cell-arrow svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       fill: none;
       stroke-width: 3;
       stroke-linecap: round;
@@ -223,18 +313,22 @@
   </a>
 
   <div class="page-container">
-    
+
     <div class="tab-control">
       <button class="tab-button active" data-target="singapore">新加坡 Singapore</button>
       <button class="tab-button" data-target="thailand">泰國 Thailand</button>
     </div>
 
     <div id="singapore" class="tab-content active singapore-theme">
-      <h1 class="country-title">Singapore</h1>
+      <div class="country-banner">
+        <span class="country-flag">🇸🇬</span>
+        <h1 class="country-title">Singapore</h1>
+      </div>
       <div class="visit-list">
-        
+
         <a href="https://www.aidf.nus.edu.sg/" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">🎓</div>
             <div class="visit-cell cell-info">
               <div class="info-title">NUS AIDF</div>
               <div class="info-desc">由新加坡金管局等單位聯合創立，專注數位金融研究、新創孵化與跨學科人才培養。</div>
@@ -247,6 +341,7 @@
 
         <a href="https://www.asia.privatebanking.hsbc.com.hk/zh-hk/index/" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">🏦</div>
             <div class="visit-cell cell-info">
               <div class="info-title">HSBC私人銀行與家族辦公室</div>
               <div class="info-desc">為高淨值客戶配置全球資產，建構完善的家族辦公室與信託生態圈。</div>
@@ -259,6 +354,7 @@
 
         <a href="https://www.dbs.com.sg/index/default.page" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">💳</div>
             <div class="visit-cell cell-info">
               <div class="info-title">DBS (數位轉型與AI 賦能的金融創新)</div>
               <div class="info-desc">全球數位轉型標竿，運用人工智慧與雲端數據重塑未來金融體驗。</div>
@@ -271,6 +367,7 @@
 
         <a href="https://www.hyundai.com/sg/home" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">🏭</div>
             <div class="visit-cell cell-info">
               <div class="info-title">HMGICS</div>
               <div class="info-desc">現代汽車智能研發中心，以數位雙生與機器人翻轉傳統製造模式。</div>
@@ -285,11 +382,15 @@
     </div>
 
     <div id="thailand" class="tab-content thailand-theme">
-      <h1 class="country-title">Thailand</h1>
+      <div class="country-banner">
+        <span class="country-flag">🇹🇭</span>
+        <h1 class="country-title">Thailand</h1>
+      </div>
       <div class="visit-list">
-        
+
         <a href="https://www.depa.or.th/en/home" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">🏛️</div>
             <div class="visit-cell cell-info">
               <div class="info-title">Digital Economy Promotion Agency</div>
               <div class="info-desc">depa是推動「泰國4.0」的官方核心，全力打造泰國智慧城市與Digital Valley，引領泰國數位轉型。</div>
@@ -302,6 +403,7 @@
 
         <a href="https://www.truedigitalpark.com/en" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">🌐</div>
             <div class="visit-cell cell-info">
               <div class="info-title">True Digital Park</div>
               <div class="info-desc">東南亞最大創新生態系，為科技人才與創投對接的核心樞紐。</div>
@@ -314,6 +416,7 @@
 
         <a href="https://en.bas.swu.ac.th/" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">🎓</div>
             <div class="visit-cell cell-info">
               <div class="info-title">Srinakharinwirot University 商學院</div>
               <div class="info-desc">中大姊妹校，聚焦於永續發展、社會企業、行銷與財金等專業。</div>
@@ -326,6 +429,7 @@
 
         <a href="https://www.nia.or.th/" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">💡</div>
             <div class="visit-cell cell-info">
               <div class="info-title">National Innovation Agency</div>
               <div class="info-desc">泰國國家創新局；主導國家創新策略，全面提升泰國新創產業與科技的國際競爭力。</div>
@@ -338,6 +442,7 @@
 
         <a href="https://investor.ask.co.th/en/home" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">🚗</div>
             <div class="visit-cell cell-info">
               <div class="info-title">Asia Sermkij Leasing Public Company Limited</div>
               <div class="info-desc">中租與泰國曼谷銀行合資，主營汽車分期與個人貸款，為當地汽車市場的指標機構。</div>
@@ -350,6 +455,7 @@
 
         <a href="https://www.bgpl-lease.com/?lang=en" target="_blank" class="visit-item-link">
           <div class="visit-item">
+            <div class="cell-icon">💼</div>
             <div class="visit-cell cell-info">
               <div class="info-title">Bangkok Grand Pacific Lease Public Company Limited</div>
               <div class="info-desc">中租與泰國曼谷銀行合資，專注企業機器設備租賃、車輛長租、商業保理與綠能融資等企業方案。</div>
