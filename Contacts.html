@@ -1,301 +1,344 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <!-- 確保手機支援縮放與手勢平移 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>通訊錄名單</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+  <title>Contacts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 15px;
-        /* 允許整個網頁內容撐開，不強制限制在螢幕寬度內 */
-        display: inline-block; 
-        min-width: 100%;
+      display: block;
+      margin: 0;
+      padding: 0;
+      background-color: #0f1117;
+      font-family: Arial, "Microsoft JhengHei", sans-serif;
+      color: #d0d0d0;
     }
-    
-    /* 懸浮首頁按鈕基礎樣式 */
+
+    /* 懸浮首頁按鈕 */
     .home-link {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 80px;
-        background-color: #ffffff;
-        border-radius: 50%;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        text-decoration: none;
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background-color: #1a1d27;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
     }
-
-    /* 懸停動態放大效果 (外圓同步放大至 88px) */
     .home-link:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transform: scale(1.1);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
     }
-
-    /* 內部首頁 SVG 圖標樣式 */
     .home-link svg {
-        width: 40px;
-        height: 40px;
-        fill: #C55A11;
-        transition: fill 0.2s ease;
+      width: 26px;
+      height: 26px;
+      fill: #e8a06a;
+      transition: fill 0.2s ease;
     }
-
-    /* 懸停時圖標變更為藍位提示 */
     .home-link:hover svg {
-        fill: #0076cc;
+      fill: #0076cc;
     }
 
-    /* 主容器：確保上方預留足夠空間，避免內容與固定在左上角的首頁按鈕產生視覺重疊 */
-    .main-content-wrapper {
-        padding-top: 80px;
-    }
-    
-    /* 移除所有隱藏與捲軸設定，讓容器寬度完全由表格寬度決定 */
-    .table-container {
-        display: block;
-        background: #ffffff;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        margin: 0 auto;
+    /* 主容器 */
+    .page-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 16px 48px;
     }
 
-    table {
-        /* 移除 width: 100%，改由內容自動撐開真實寬度 */
-        border-collapse: collapse;
-        white-space: nowrap; /* 保持文字不折行，撐開表格 */
-        font-size: 14px;
+    /* 頁面標題 */
+    .page-title-wrap {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      display: inline-block;
+      font-size: 30px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #5b9bd5 0%, #8ec3f0 50%, #5b9bd5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+    .page-tip {
+      font-size: 13px;
+      color: #666888;
+      text-align: center;
+      margin-bottom: 28px;
     }
 
-    th, td {
-        border: 1px solid #bdc3c7;
-        padding: 10px 12px;
-        vertical-align: middle;
+    /* 分區標題 */
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #d0d0d0;
+      margin: 30px 0 14px;
+      padding-left: 12px;
+    }
+    .section-title.sg {
+      border-left: 5px solid #0069b4;
+    }
+    .section-title.th {
+      border-left: 5px solid #b84a0a;
     }
 
-    /* 標題列顏色與原圖相符 */
-    th {
-        background-color: #e8f4f8;
-        color: #333;
-        font-weight: bold;
-        text-align: center;
+    /* 聯絡卡片清單 */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    /* 職務/組別主分類欄位背景色 (深藍、淺藍、淺黃、淺綠、灰) */
-    .bg-darkblue { background-color: #3a75c4; color: white; font-weight: bold; text-align: center; }
-    .bg-lightblue { background-color: #5b9bd5; color: white; font-weight: bold; text-align: center; }
-    .bg-yellow { background-color: #fff2cc; color: #7f6000; font-weight: bold; text-align: center; }
-    .bg-green { background-color: #e2efda; color: #375623; font-weight: bold; text-align: center; }
-    .bg-gray { background-color: #f2f2f2; font-weight: bold; text-align: center; }
-
-    /* 保留原圖的對齊方式 */
-    .text-center { text-align: center; }
-    .text-left { text-align: left; }
-
-    /* 手機滑動提示 */
-    .scroll-tip {
-        text-align: center;
-        font-size: 13px;
-        color: #2c3e50;
-        background-color: #e1f5fe;
-        padding: 8px;
-        border-radius: 4px;
-        margin-bottom: 12px;
-        font-weight: bold;
+    /* 單張聯絡卡片 */
+    .contact-card {
+      border-radius: 18px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
     }
-    @media (min-width: 1025px) {
-        .scroll-tip { display: none; }
+
+    /* 光暈裝飾 */
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
     }
-    </style>
+    .contact-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 10px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* 新加坡條目：深藍漸層 */
+    .item-sg {
+      background: linear-gradient(135deg, #002d54 0%, #004f8a 45%, #0069b4 100%);
+    }
+
+    /* 泰國條目：深橙漸層 */
+    .item-th {
+      background: linear-gradient(135deg, #5a1800 0%, #8c3200 45%, #b84a0a 100%);
+    }
+
+    /* 卡片內容 */
+    .card-org {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 19px;
+      font-weight: 400;
+      color: #ffffff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      margin-bottom: 12px;
+    }
+    .card-org i {
+      font-size: 16px;
+      opacity: 0.85;
+    }
+
+    .contact-block {
+      position: relative;
+      z-index: 1;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .contact-block:first-of-type {
+      padding-top: 0;
+      border-top: none;
+    }
+    .contact-block + .contact-block {
+      margin-top: 10px;
+    }
+
+    .contact-person {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .contact-person i {
+      width: 14px;
+      flex-shrink: 0;
+      opacity: 0.75;
+      font-size: 13px;
+    }
+    .contact-person.unknown {
+      color: #ffffff;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      word-break: break-word;
+    }
+    .contact-detail i {
+      width: 14px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      opacity: 0.7;
+      font-size: 12px;
+    }
+    .contact-detail.dash {
+      color: #ffffff;
+    }
+  </style>
 </head>
 <body>
+  <a href="index.html" class="home-link" title="返回首頁">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
 
-<!-- 懸浮首頁按鈕 -->
-<a href="index.html" class="home-link" title="返回首頁">
-  <svg viewBox="0 0 24 24">
-    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-  </svg>
-</a>
+  <div class="page-container">
 
-<div class="main-content-wrapper">
-    <div class="scroll-tip">💡 提示：本表格支援雙指縮放，您可以直接用手指拖曳整個頁面瀏覽完整內容。</div>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>組別</th>
-                    <th>姓名</th>
-                    <th>姓名 (護照英文+常用英文名)</th>
-                    <th>公司 (英文)</th>
-                    <th>職稱 (英文)</th>
-                    <th>角色</th>
-                    <th>手機</th>
-                    <th>email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="bg-darkblue">專案執行長 (1位)</td>
-                    <td class="text-center">姜玫君</td>
-                    <td class="text-left">Chiang Mei Chun(Coco)</td>
-                    <td class="text-left">Legrand<br>Power and Access Data Power&Dontrol</td>
-                    <td class="text-left">Financial Controller, APAC</td>
-                    <td class="text-center">執行長</td>
-                    <td class="text-center">0922792885</td>
-                    <td class="text-left">114E.Coco.Chiang@emba.ncu.edu.tw<br>Coco.chiang@legrand.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-lightblue">副執行長 (1位)</td>
-                    <td class="text-center">廖聰志</td>
-                    <td class="text-left">Liao, Tsung-Chih (Paul)</td>
-                    <td class="text-left">Delta Electronics, Inc.</td>
-                    <td class="text-left">QA manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0931166086</td>
-                    <td class="text-left">paul.tc.liao@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-yellow" rowspan="4">聯繫公關組 (4位)</td>
-                    <td class="text-center">章廣榮</td>
-                    <td class="text-left">Chang, Kuang-Jung (Luigi)</td>
-                    <td class="text-left">ScaleFlux, Inc.</td>
-                    <td class="text-left">Sr. Director of Business Development and Product Engineering</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0920955623</td>
-                    <td class="text-left">114e.luigi.chang@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">吳懿展</td>
-                    <td class="text-left">Wu,Yi-Chan (Jordan)</td>
-                    <td class="text-left">Powerquark, Inc</td>
-                    <td class="text-left">Taiwan Country Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0935795798</td>
-                    <td class="text-left">jordan670613@yahoo.com.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">張肇驛</td>
-                    <td class="text-left">Chang. Chao-Yi (Austin)</td>
-                    <td class="text-left">Chernger technology co, Ltd.</td>
-                    <td class="text-left">General manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0939777483</td>
-                    <td class="text-left">auestin@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">門志漢</td>
-                    <td class="text-left">Men, Chih-han (Andrew)</td>
-                    <td class="text-left">ficonTEC service GmbH</td>
-                    <td class="text-left">Sourcing & Supply Chain Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0939533154</td>
-                    <td class="text-left">chihhanmen@gmail.com<br>andrew.men@ficontec.com<br>114e.andrew.men@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-yellow" rowspan="3">旅行財務組 (3位)</td>
-                    <td class="text-center">郭天立</td>
-                    <td class="text-left">Kuo, Tien-Li ( A-Li)</td>
-                    <td class="text-left">Si Wei Dental Group</td>
-                    <td class="text-left">Marketing manager</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0939710439</td>
-                    <td class="text-left">kuotianli6636@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">鄭竣升</td>
-                    <td class="text-left">Cheng, Chun-Sheng</td>
-                    <td class="text-left">UP SCIENTECH MATERIALS CORP.</td>
-                    <td class="text-left">SA manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">+86-15250477074</td>
-                    <td class="text-left">gn000894@hotmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">簡雅惠</td>
-                    <td class="text-left">Chien, Ya-Hui</td>
-                    <td class="text-left">Donpon Precision Inc.</td>
-                    <td class="text-left">Director, General Management Office</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0955998569</td>
-                    <td class="text-left">dorischien423@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-green" rowspan="3">行政支援組 (3位)</td>
-                    <td class="text-center">曾世翰</td>
-                    <td class="text-left">Tseng, Shih-Han</td>
-                    <td class="text-left">WAFER WORKS</td>
-                    <td class="text-left">Deputy Director - Facility Div.</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0933258098</td>
-                    <td class="text-left">peter050864@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">鍾曜宇</td>
-                    <td class="text-left">Chung, Yao-Yu (Ken)</td>
-                    <td class="text-left">Inventec</td>
-                    <td class="text-left">Developer Testing Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0919260665</td>
-                    <td class="text-left">114e.ken.chung@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">陳玠錳</td>
-                    <td class="text-left">Chen, Chieh-Meng</td>
-                    <td class="text-left">BellWether Electronic Corp.</td>
-                    <td class="text-left">Brand Marketing Project Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0911271513</td>
-                    <td class="text-left">niva@nayc.com.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-green" rowspan="3">活動紀錄組 (3位)</td>
-                    <td class="text-center">胡書瑋</td>
-                    <td class="text-left">Hu, Shu-Wei</td>
-                    <td class="text-left">Ion Applied Shenzhen Co., Ltd.</td>
-                    <td class="text-left">Director</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">+86-13771951585</td>
-                    <td class="text-left">hu0411@msn.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">陳俊安</td>
-                    <td class="text-left">Chen, Chun-An (Kinson)</td>
-                    <td class="text-left">HuaWei</td>
-                    <td class="text-left">Chief Engineer/ Project Leader</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0963639357<br>+86-15601743357</td>
-                    <td class="text-left">East5210@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">施元中</td>
-                    <td class="text-left">Shih, Yuan-Chung</td>
-                    <td class="text-left">Lihsing Co., Ltd.</td>
-                    <td class="text-left">Vice President</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0933136751</td>
-                    <td class="text-left">lstonyshih@gmail.com<br>114e.tony.shih@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-gray">團員</td>
-                    <td class="text-center">高長翰</td>
-                    <td class="text-left">Kao, Chang-Han (Bill)</td>
-                    <td class="text-left">National Chin-Yi University of Technology</td>
-                    <td class="text-left">Adjunct Lecturer</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0919150480</td>
-                    <td class="text-left">billkao.ncu@gmail.com</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="page-title-wrap">
+      <h1 class="page-title">Contacts</h1>
     </div>
-</div>
+    <div class="page-tip">受訪對象連絡人資訊</div>
 
+    <div class="section-title sg">Singapore 新加坡參訪單位</div>
+    <div class="contact-list">
+
+      <div class="contact-card item-sg">
+        <div class="card-org"><i class="fa-solid fa-building"></i>NUS AIDF</div>
+        <div class="contact-block">
+          <div class="contact-person"><i class="fa-solid fa-user"></i>Ricky (Sirui)</div>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i>rickylsr@nus.edu.sg</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-sg">
+        <div class="card-org"><i class="fa-solid fa-building"></i>HSBC</div>
+        <div class="contact-block">
+          <div class="contact-person"><i class="fa-solid fa-user"></i>Hugo (曹躍鏗)</div>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i>hugo.yc.tsao@hsbcpb.com</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-sg">
+        <div class="card-org"><i class="fa-solid fa-building"></i>DBS</div>
+        <div class="contact-block">
+          <div class="contact-person"><i class="fa-solid fa-user"></i>Him Chuan, LIM (林鑫川)</div>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i>himchuan@dbs.com</div>
+        </div>
+        <div class="contact-block">
+          <div class="contact-person"><i class="fa-solid fa-user"></i>Pearlisa Pang</div>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i>liminpearlisa@dbs.com</div>
+        </div>
+        <div class="contact-block">
+          <div class="contact-person"><i class="fa-solid fa-user"></i>Marjorie Ang</div>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i>marjorieang@dbs.com</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-sg">
+        <div class="card-org"><i class="fa-solid fa-building"></i>HMGICS</div>
+        <div class="contact-block">
+          <div class="contact-person"><i class="fa-solid fa-user"></i>HMGICS experience team</div>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i>visitus@hmgics.com</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-sg">
+        <div class="card-org"><i class="fa-solid fa-building"></i>NUS</div>
+        <div class="contact-block">
+          <div class="contact-person"><i class="fa-solid fa-user"></i>Angela (張以潔) 老師</div>
+          <div class="contact-detail"><i class="fa-solid fa-envelope"></i>angela22@nus.edu.sg</div>
+          <div class="contact-detail"><i class="fa-solid fa-phone"></i>SG手機：+65 88157801</div>
+          <div class="contact-detail"><i class="fa-brands fa-line"></i>LINE ID：angela.chang1222</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-title th">Thailand 泰國參訪單位</div>
+    <div class="contact-list">
+
+      <div class="contact-card item-th">
+        <div class="card-org"><i class="fa-solid fa-building"></i>Digital Economy Promotion Agency (depa)</div>
+        <div class="contact-block">
+          <div class="contact-person unknown"><i class="fa-solid fa-user"></i>unknown</div>
+          <div class="contact-detail dash"><i class="fa-solid fa-envelope"></i>-</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-th">
+        <div class="card-org"><i class="fa-solid fa-building"></i>True Digital Park</div>
+        <div class="contact-block">
+          <div class="contact-person unknown"><i class="fa-solid fa-user"></i>unknown</div>
+          <div class="contact-detail dash"><i class="fa-solid fa-envelope"></i>-</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-th">
+        <div class="card-org"><i class="fa-solid fa-building"></i>Srinakharinwirot University</div>
+        <div class="contact-block">
+          <div class="contact-person unknown"><i class="fa-solid fa-user"></i>unknown</div>
+          <div class="contact-detail dash"><i class="fa-solid fa-envelope"></i>-</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-th">
+        <div class="card-org"><i class="fa-solid fa-building"></i>National Innovation Agency (NIA)</div>
+        <div class="contact-block">
+          <div class="contact-person unknown"><i class="fa-solid fa-user"></i>unknown</div>
+          <div class="contact-detail dash"><i class="fa-solid fa-envelope"></i>-</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-th">
+        <div class="card-org"><i class="fa-solid fa-building"></i>Asia Sermkij Leasing Public Company Limited</div>
+        <div class="contact-block">
+          <div class="contact-person unknown"><i class="fa-solid fa-user"></i>unknown</div>
+          <div class="contact-detail dash"><i class="fa-solid fa-envelope"></i>-</div>
+        </div>
+      </div>
+
+      <div class="contact-card item-th">
+        <div class="card-org"><i class="fa-solid fa-building"></i>Bangkok Grand Pacific Lease Public Company Limited</div>
+        <div class="contact-block">
+          <div class="contact-person unknown"><i class="fa-solid fa-user"></i>unknown</div>
+          <div class="contact-detail dash"><i class="fa-solid fa-envelope"></i>-</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 </body>
 </html>
