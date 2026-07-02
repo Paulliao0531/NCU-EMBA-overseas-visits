@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.6, minimum-scale=0.5, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
   <title>EMBA 海外參訪行程</title>
   <style>
     *, *::before, *::after {
@@ -76,7 +76,7 @@
 
     .tab-button {
       padding: 10px 24px;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: bold;
       border: none;
       background: none;
@@ -97,7 +97,7 @@
 
     /* 國家大標題 */
     .country-title {
-      font-size: 42px;
+      font-size: 36px;
       font-weight: 800;
       font-style: italic;
       margin-top: 0;
@@ -116,7 +116,6 @@
     /* 分頁內容顯示/隱藏 */
     .tab-content {
       display: none;
-      min-width: 650px; /* 確保內容在行動端不擠壓變形 */
     }
 
     .tab-content.active {
@@ -138,13 +137,14 @@
     }
 
     .visit-item {
-      display: table;
+      display: flex;
+      align-items: center;
       width: 100%;
-      table-layout: fixed; 
       border-radius: 16px;
       padding: 20px 25px;
       background-color: #ffffff;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      gap: 20px;
     }
 
     .visit-item:hover {
@@ -166,39 +166,33 @@
       box-shadow: 0 4px 12px rgba(214, 92, 25, 0.15);
     }
 
-    /* 表格單元格模擬與垂直置中 */
-    .visit-cell {
-      display: table-cell;
-      vertical-align: middle;
-    }
-
     .cell-logo {
-      width: 140px;
+      flex-shrink: 0;
+      width: 120px;
       text-align: left;
-      padding-right: 20px;
     }
 
     .cell-logo img {
-      max-width: 120px;
-      max-height: 70px;
+      max-width: 100px;
+      max-height: 60px;
       object-fit: contain;
       display: block;
     }
 
     .cell-info {
-      padding-right: 20px;
-      width: 100%; 
+      flex: 1;
+      min-width: 0;
     }
 
     .info-title {
-      font-size: 34px;
+      font-size: 28px;
       font-weight: bold;
       color: #111111;
       margin-bottom: 8px;
     }
 
     .info-desc {
-      font-size: 28px;
+      font-size: 24px;
       color: #555555;
       line-height: 1.5;
       white-space: pre-line;
@@ -207,7 +201,8 @@
     }
 
     .cell-arrow {
-      width: 30px;
+      flex-shrink: 0;
+      width: 24px;
       text-align: right;
     }
 
