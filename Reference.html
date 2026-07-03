@@ -153,7 +153,7 @@
       margin-bottom: 5px;
     }
     .link-title {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 400;
       color: #ffffff;
       line-height: 1.35;
@@ -165,6 +165,7 @@
       flex-shrink: 0;
       position: relative;
       z-index: 1;
+      transition: transform 0.2s ease;
     }
     .link-arrow svg {
       width: 22px;
@@ -174,6 +175,52 @@
       stroke-width: 2.5;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }
+
+    /* 摺疊區塊（Reserved） */
+    .info-collapsible {
+      display: block;
+      cursor: pointer;
+    }
+    .info-collapsible summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      list-style: none;
+    }
+    .info-collapsible summary::-webkit-details-marker {
+      display: none;
+    }
+    .info-collapsible summary::marker {
+      content: '';
+    }
+    .info-collapsible[open] .link-arrow {
+      transform: rotate(90deg);
+    }
+    .collapse-content {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 24px;
+      color: #ffffff;
+    }
+    .collapse-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pin-icon {
+      width: 10px;
+      height: 10px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background-color: #ffd93d;
     }
   </style>
 </head>
@@ -232,15 +279,34 @@
         </div>
       </a>
 
-      <a href="#" class="info-link item-reserved">
-        <div class="link-text">
-          <div class="link-country">Reserved</div>
-          <div class="link-title">Reserved</div>
+      <details class="info-link item-reserved info-collapsible">
+        <summary>
+          <div class="link-text">
+            <div class="link-title">溫馨提示</div>
+          </div>
+          <div class="link-arrow">
+            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </summary>
+        <div class="collapse-content">
+          <div class="collapse-item">
+            <span class="pin-icon"></span>
+            <span>安裝 Grab APP了嗎？</span>
+          </div>
+          <div class="collapse-item">
+            <span class="pin-icon"></span>
+            <span>記得穿(帶)正裝</span>
+          </div>
+          <div class="collapse-item">
+            <span class="pin-icon"></span>
+            <span>記得帶名片 (EMBA或自己公司的都行)</span>
+          </div>
+          <div class="collapse-item">
+            <span class="pin-icon"></span>
+            <span>消暑小物</span>
+          </div>
         </div>
-        <div class="link-arrow">
-          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-        </div>
-      </a>
+      </details>
 
     </div>
   </div>
