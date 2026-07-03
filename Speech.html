@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+  <title>師長的話</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      display: block;
+      margin: 0;
+      padding: 0;
+      background-color: #0f1117;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+    }
+
+    /* 懸浮首頁按鈕 */
+    .home-link {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background-color: #1a1d27;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+    .home-link:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+    }
+    .home-link svg {
+      width: 26px;
+      height: 26px;
+      fill: #e8a06a;
+      transition: fill 0.2s ease;
+    }
+    .home-link:hover svg {
+      fill: #0076cc;
+    }
+
+    /* 主容器 */
+    .page-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 16px 48px;
+    }
+
+    /* 頁面標題 */
+    .page-title-wrap {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .page-title {
+      display: inline-block;
+      font-size: 30px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #5b9bd5 0%, #8ec3f0 50%, #5b9bd5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+
+    /* 卡片清單 */
+    .speech-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* 每一張師長卡片 */
+    .speech-card {
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 光暈裝飾 */
+    .speech-card::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      pointer-events: none;
+    }
+
+    /* 院長卡片：深藍漸層 */
+    .card-dean {
+      background: linear-gradient(135deg, #101a2e 0%, #16233d 60%, #1c2c4a 100%);
+      border: 1px solid rgba(91, 155, 213, 0.25);
+    }
+
+    /* 副院長卡片：深橙漸層 */
+    .card-vicedean {
+      background: linear-gradient(135deg, #2e1a10 0%, #3d2416 60%, #4a2c1c 100%);
+      border: 1px solid rgba(232, 160, 106, 0.25);
+    }
+
+    .speech-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 18px;
+    }
+
+    .speech-photo-wrap {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .speech-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      border-radius: 50%;
+    }
+
+    .speech-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.4;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .speech-body {
+      position: relative;
+      z-index: 1;
+      font-size: 20px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .speech-body p {
+      margin: 0 0 16px 0;
+    }
+    .speech-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .speech-body.placeholder {
+      color: rgba(255, 255, 255, 0.55);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-link" title="返回首頁">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
+
+  <div class="page-container">
+
+    <div class="page-title-wrap">
+      <h1 class="page-title">師長的話</h1>
+    </div>
+
+    <div class="speech-list">
+
+      <div class="speech-card card-dean">
+        <div class="speech-header">
+          <div class="speech-photo-wrap"><img src="葉錦徽.png" alt="葉錦徽" class="speech-photo"></div>
+          <div class="speech-name">葉錦徽 院長</div>
+        </div>
+        <div class="speech-body placeholder">
+          <p>暫無資料</p>
+        </div>
+      </div>
+
+      <div class="speech-card card-vicedean">
+        <div class="speech-header">
+          <div class="speech-photo-wrap"><img src="沈建文.png" alt="沈建文" class="speech-photo"></div>
+          <div class="speech-name">沈建文 副院長</div>
+        </div>
+        <div class="speech-body">
+          <p>In recent years, Southeast Asia has become one of the most dynamic regions for global economic growth. It is not only an important base for the restructuring of international supply chains, the development of the digital economy, and innovation and entrepreneurship, but also a key region that Taiwanese enterprises cannot overlook when expanding into overseas markets and developing regional strategies.</p>
+          <p>This study tour to Singapore and Thailand marks the first overseas visit arranged by NCU EMBA to these two countries. I hope that all students will draw upon their rich professional and managerial experience, actively ask questions, and engage in meaningful exchanges throughout the visit. Through practical cases from multinational corporations and local institutions, I hope this journey will inspire new insights into business management.</p>
+          <p>I also hope that this trip will help everyone broaden their international perspectives and professional networks, strengthen the bonds among classmates, and transform what they see and learn into valuable nourishment for future business development and organizational innovation. I wish you all a fruitful journey, and I hope this visit will become a meaningful and memorable chapter in your EMBA learning experience.</p>
+          <p>Associate Dean, Prof. Chien-wen (Mark) Shen</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
