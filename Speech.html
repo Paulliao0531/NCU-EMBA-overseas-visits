@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
   <title>師長的話</title>
+  <link rel="preload" as="image" href="葉錦徽.jpg">
+  <link rel="preload" as="image" href="沈建文.jpg">
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -223,7 +225,7 @@
 
       <div class="speech-card card-dean">
         <div class="speech-header" onclick="this.closest('.speech-card').classList.toggle('expanded')">
-          <div class="speech-photo-wrap"><img src="葉錦徽.png" alt="葉錦徽" class="speech-photo"></div>
+          <div class="speech-photo-wrap"><img src="葉錦徽.jpg" alt="葉錦徽" class="speech-photo" width="128" height="128" loading="eager" fetchpriority="high"></div>
           <div class="speech-name-wrap">
             <div class="speech-name">葉錦徽 院長</div>
             <div class="speech-toggle"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -236,7 +238,7 @@
 
       <div class="speech-card card-vicedean">
         <div class="speech-header" onclick="this.closest('.speech-card').classList.toggle('expanded')">
-          <div class="speech-photo-wrap"><img src="沈建文.png" alt="沈建文" class="speech-photo"></div>
+          <div class="speech-photo-wrap"><img src="沈建文.jpg" alt="沈建文" class="speech-photo" width="128" height="128" loading="eager" fetchpriority="high"></div>
           <div class="speech-name-wrap">
             <div class="speech-name">沈建文 副院長</div>
             <div class="speech-toggle"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
