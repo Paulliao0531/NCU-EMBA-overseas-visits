@@ -119,7 +119,36 @@
       gap: 16px;
       position: relative;
       z-index: 1;
+      cursor: pointer;
+      user-select: none;
+    }
+    .speech-card.expanded .speech-header {
       margin-bottom: 18px;
+    }
+
+    .speech-name-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .speech-toggle {
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .speech-toggle svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.7);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .speech-card.expanded .speech-toggle {
+      transform: rotate(180deg);
     }
 
     .speech-photo-wrap {
@@ -153,11 +182,15 @@
     }
 
     .speech-body {
+      display: none;
       position: relative;
       z-index: 1;
       font-size: 20px;
       line-height: 1.75;
       color: rgba(255, 255, 255, 0.92);
+    }
+    .speech-card.expanded .speech-body {
+      display: block;
     }
 
     .speech-body p {
@@ -189,9 +222,12 @@
     <div class="speech-list">
 
       <div class="speech-card card-dean">
-        <div class="speech-header">
+        <div class="speech-header" onclick="this.closest('.speech-card').classList.toggle('expanded')">
           <div class="speech-photo-wrap"><img src="葉錦徽.png" alt="葉錦徽" class="speech-photo"></div>
-          <div class="speech-name">葉錦徽 院長</div>
+          <div class="speech-name-wrap">
+            <div class="speech-name">葉錦徽 院長</div>
+            <div class="speech-toggle"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+          </div>
         </div>
         <div class="speech-body placeholder">
           <p>暫無資料</p>
@@ -199,9 +235,12 @@
       </div>
 
       <div class="speech-card card-vicedean">
-        <div class="speech-header">
+        <div class="speech-header" onclick="this.closest('.speech-card').classList.toggle('expanded')">
           <div class="speech-photo-wrap"><img src="沈建文.png" alt="沈建文" class="speech-photo"></div>
-          <div class="speech-name">沈建文 副院長</div>
+          <div class="speech-name-wrap">
+            <div class="speech-name">沈建文 副院長</div>
+            <div class="speech-toggle"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+          </div>
         </div>
         <div class="speech-body">
           <p>In recent years, Southeast Asia has become one of the most dynamic regions for global economic growth. It is not only an important base for the restructuring of international supply chains, the development of the digital economy, and innovation and entrepreneurship, but also a key region that Taiwanese enterprises cannot overlook when expanding into overseas markets and developing regional strategies.</p>
