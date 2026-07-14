@@ -1,301 +1,513 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <!-- 確保手機支援縮放與手勢平移 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>通訊錄名單</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+  <title>Members</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 15px;
-        /* 允許整個網頁內容撐開，不強制限制在螢幕寬度內 */
-        display: inline-block; 
-        min-width: 100%;
+      display: block;
+      margin: 0;
+      padding: 0;
+      background-color: #0f1117;
+      font-family: Arial, "Microsoft JhengHei", sans-serif;
+      color: #d0d0d0;
+      font-size: 20px;
     }
-    
-    /* 懸浮首頁按鈕基礎樣式 */
+
+    /* 懸浮首頁按鈕 */
     .home-link {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 80px;
-        background-color: #ffffff;
-        border-radius: 50%;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        text-decoration: none;
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background-color: #1a1d27;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
     }
-
-    /* 懸停動態放大效果 (外圓同步放大至 88px) */
     .home-link:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transform: scale(1.1);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
     }
-
-    /* 內部首頁 SVG 圖標樣式 */
     .home-link svg {
-        width: 40px;
-        height: 40px;
-        fill: #C55A11;
-        transition: fill 0.2s ease;
+      width: 26px;
+      height: 26px;
+      fill: #e8a06a;
+      transition: fill 0.2s ease;
     }
-
-    /* 懸停時圖標變更為藍位提示 */
     .home-link:hover svg {
-        fill: #0076cc;
+      fill: #0076cc;
     }
 
-    /* 主容器：確保上方預留足夠空間，避免內容與固定在左上角的首頁按鈕產生視覺重疊 */
-    .main-content-wrapper {
-        padding-top: 80px;
-    }
-    
-    /* 移除所有隱藏與捲軸設定，讓容器寬度完全由表格寬度決定 */
-    .table-container {
-        display: block;
-        background: #ffffff;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        margin: 0 auto;
+    /* 主容器 */
+    .page-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 16px 48px;
     }
 
-    table {
-        /* 移除 width: 100%，改由內容自動撐開真實寬度 */
-        border-collapse: collapse;
-        white-space: nowrap; /* 保持文字不折行，撐開表格 */
-        font-size: 14px;
+    /* 頁面標題 */
+    .page-title-wrap {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      display: inline-block;
+      font-size: 36px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #5b9bd5 0%, #8ec3f0 50%, #5b9bd5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+    .page-tip {
+      font-size: 20px;
+      color: #9aa0c0;
+      text-align: center;
+      margin-bottom: 28px;
     }
 
-    th, td {
-        border: 1px solid #bdc3c7;
-        padding: 10px 12px;
-        vertical-align: middle;
+    /* 分區標題 */
+    .section-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #d0d0d0;
+      margin: 30px 0 14px;
+      padding-left: 12px;
+    }
+    .section-title.leader  { border-left: 5px solid #d4a017; }
+    .section-title.deputy  { border-left: 5px solid #2e8b8b; }
+    .section-title.pr      { border-left: 5px solid #0069b4; }
+    .section-title.finance { border-left: 5px solid #2f8f4e; }
+    .section-title.admin   { border-left: 5px solid #b0468a; }
+    .section-title.record  { border-left: 5px solid #b84a0a; }
+    .section-title.member  { border-left: 5px solid #6b7280; }
+
+    /* 角色職責說明 */
+    .job-def {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 20px;
+      line-height: 1.7;
+      color: #b9bfe0;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin: 0 0 16px;
+    }
+    .job-def i {
+      flex-shrink: 0;
+      margin-top: 4px;
+      font-size: 18px;
+      opacity: 0.9;
+    }
+    .job-def.leader  i { color: #d4a017; }
+    .job-def.deputy  i { color: #2e8b8b; }
+    .job-def.pr      i { color: #3b9eff; }
+    .job-def.finance i { color: #2f8f4e; }
+    .job-def.admin   i { color: #d06bb0; }
+    .job-def.record  i { color: #e0731e; }
+
+    /* 成員卡片清單 */
+    .person-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    /* 標題列顏色與原圖相符 */
-    th {
-        background-color: #e8f4f8;
-        color: #333;
-        font-weight: bold;
-        text-align: center;
+    /* 單張成員卡片 */
+    .person-card {
+      border-radius: 18px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
     }
 
-    /* 職務/組別主分類欄位背景色 (深藍、淺藍、淺黃、淺綠、灰) */
-    .bg-darkblue { background-color: #3a75c4; color: white; font-weight: bold; text-align: center; }
-    .bg-lightblue { background-color: #5b9bd5; color: white; font-weight: bold; text-align: center; }
-    .bg-yellow { background-color: #fff2cc; color: #7f6000; font-weight: bold; text-align: center; }
-    .bg-green { background-color: #e2efda; color: #375623; font-weight: bold; text-align: center; }
-    .bg-gray { background-color: #f2f2f2; font-weight: bold; text-align: center; }
-
-    /* 保留原圖的對齊方式 */
-    .text-center { text-align: center; }
-    .text-left { text-align: left; }
-
-    /* 手機滑動提示 */
-    .scroll-tip {
-        text-align: center;
-        font-size: 13px;
-        color: #2c3e50;
-        background-color: #e1f5fe;
-        padding: 8px;
-        border-radius: 4px;
-        margin-bottom: 12px;
-        font-weight: bold;
+    /* 光暈裝飾 */
+    .person-card::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
     }
-    @media (min-width: 1025px) {
-        .scroll-tip { display: none; }
+    .person-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 10px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
     }
-    </style>
+
+    /* 各組漸層配色 */
+    .item-leader  { background: linear-gradient(135deg, #5c4400 0%, #8a6a00 45%, #d4a017 100%); }
+    .item-deputy  { background: linear-gradient(135deg, #063535 0%, #0d5c5c 45%, #2e8b8b 100%); }
+    .item-pr      { background: linear-gradient(135deg, #002d54 0%, #004f8a 45%, #0069b4 100%); }
+    .item-finance { background: linear-gradient(135deg, #123a1e 0%, #1e6435 45%, #2f8f4e 100%); }
+    .item-admin   { background: linear-gradient(135deg, #4a1338 0%, #7a1f5c 45%, #b0468a 100%); }
+    .item-record  { background: linear-gradient(135deg, #5a1800 0%, #8c3200 45%, #b84a0a 100%); }
+    .item-member  { background: linear-gradient(135deg, #292d36 0%, #3d434f 45%, #6b7280 100%); }
+
+    /* 人物標題列 */
+    .person-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .person-header i {
+      font-size: 20px;
+      opacity: 0.85;
+      color: #ffffff;
+      align-self: center;
+    }
+    .person-name {
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+    .person-en {
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .person-role {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      color: #ffd54f;
+      margin-bottom: 12px;
+    }
+    .person-role i {
+      width: 18px;
+      flex-shrink: 0;
+      opacity: 0.9;
+      font-size: 18px;
+    }
+
+    .company-block {
+      position: relative;
+      z-index: 1;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .company-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 21px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .company-name i {
+      width: 18px;
+      flex-shrink: 0;
+      opacity: 0.85;
+      font-size: 19px;
+    }
+
+    .company-intro {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.7;
+      word-break: break-word;
+    }
+
+    @media (max-width: 480px) {
+      .person-name { font-size: 23px; }
+      .person-en { font-size: 18px; }
+      .page-title { font-size: 30px; }
+    }
+  </style>
 </head>
 <body>
+  <a href="index.html" class="home-link" title="返回首頁">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+  </a>
 
-<!-- 懸浮首頁按鈕 -->
-<a href="index.html" class="home-link" title="返回首頁">
-  <svg viewBox="0 0 24 24">
-    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-  </svg>
-</a>
+  <div class="page-container">
 
-<div class="main-content-wrapper">
-    <div class="scroll-tip">💡 提示：本表格支援雙指縮放，您可以直接用手指拖曳整個頁面瀏覽完整內容。</div>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>組別</th>
-                    <th>姓名</th>
-                    <th>姓名 (護照英文+常用英文名)</th>
-                    <th>公司 (英文)</th>
-                    <th>職稱 (英文)</th>
-                    <th>角色</th>
-                    <th>手機</th>
-                    <th>email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="bg-darkblue">專案執行長 (1位)</td>
-                    <td class="text-center">姜玫君</td>
-                    <td class="text-left">Chiang Mei Chun(Coco)</td>
-                    <td class="text-left">Legrand<br>Power and Access Data Power & Control</td>
-                    <td class="text-left">Financial Controller, APAC</td>
-                    <td class="text-center">執行長</td>
-                    <td class="text-center">0922792885</td>
-                    <td class="text-left">114E.Coco.Chiang@emba.ncu.edu.tw<br>Coco.chiang@legrand.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-lightblue">副執行長 (1位)</td>
-                    <td class="text-center">廖聰志</td>
-                    <td class="text-left">Liao, Tsung-Chih (Paul)</td>
-                    <td class="text-left">Delta Electronics, Inc.</td>
-                    <td class="text-left">QA manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0931166086</td>
-                    <td class="text-left">paul.tc.liao@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-yellow" rowspan="4">聯繫公關組 (4位)</td>
-                    <td class="text-center">章廣榮</td>
-                    <td class="text-left">Chang, Kuang-Jung (Luigi)</td>
-                    <td class="text-left">ScaleFlux, Inc.</td>
-                    <td class="text-left">Sr. Director of Business Development and Product Engineering</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0920955623</td>
-                    <td class="text-left">114e.luigi.chang@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">吳懿展</td>
-                    <td class="text-left">Wu,Yi-Chan (Jordan)</td>
-                    <td class="text-left">Powerquark, Inc</td>
-                    <td class="text-left">Taiwan Country Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0935795798</td>
-                    <td class="text-left">jordan670613@yahoo.com.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">張肇驛</td>
-                    <td class="text-left">Chang. Chao-Yi (Austin)</td>
-                    <td class="text-left">Chernger technology co, Ltd.</td>
-                    <td class="text-left">General manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0939777483</td>
-                    <td class="text-left">auestin@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">門志漢</td>
-                    <td class="text-left">Men, Chih-han (Andrew)</td>
-                    <td class="text-left">ficonTEC service GmbH</td>
-                    <td class="text-left">Sourcing & Supply Chain Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0939533154</td>
-                    <td class="text-left">chihhanmen@gmail.com<br>andrew.men@ficontec.com<br>114e.andrew.men@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-yellow" rowspan="3">旅行財務組 (3位)</td>
-                    <td class="text-center">郭天立</td>
-                    <td class="text-left">Kuo, Tien-Li ( A-Li)</td>
-                    <td class="text-left">Si Wei Dental Group</td>
-                    <td class="text-left">Marketing manager</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0939710439</td>
-                    <td class="text-left">kuotianli6636@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">鄭竣升</td>
-                    <td class="text-left">Cheng, Chun-Sheng</td>
-                    <td class="text-left">UP SCIENTECH MATERIALS CORP.</td>
-                    <td class="text-left">SA manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">+86-15250477074</td>
-                    <td class="text-left">gn000894@hotmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">簡雅惠</td>
-                    <td class="text-left">Chien, Ya-Hui</td>
-                    <td class="text-left">Donpon Precision Inc.</td>
-                    <td class="text-left">Director, General Management Office</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0955998569</td>
-                    <td class="text-left">dorischien423@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="bg-green" rowspan="3">行政支援組 (3位)</td>
-                    <td class="text-center">曾世翰</td>
-                    <td class="text-left">Tseng, Shih-Han</td>
-                    <td class="text-left">WAFER WORKS</td>
-                    <td class="text-left">Deputy Director - Facility Div.</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">0933258098</td>
-                    <td class="text-left">peter050864@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">鍾曜宇</td>
-                    <td class="text-left">Chung, Yao-Yu (Ken)</td>
-                    <td class="text-left">Inventec</td>
-                    <td class="text-left">Developer Testing Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0919260665</td>
-                    <td class="text-left">114e.ken.chung@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="text-center">陳玠錳</td>
-                    <td class="text-left">Chen, Chieh-Meng</td>
-                    <td class="text-left">BellWether Electronic Corp.</td>
-                    <td class="text-left">Brand Marketing Project Manager</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0911271513</td>
-                    <td class="text-left">niva@nayc.com.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-green" rowspan="3">活動紀錄組 (3位)</td>
-                    <td class="text-center">胡書瑋</td>
-                    <td class="text-left">Hu, Shu-Wei</td>
-                    <td class="text-left">Ion Applied Shenzhen Co., Ltd.</td>
-                    <td class="text-left">Director</td>
-                    <td class="text-center">組長</td>
-                    <td class="text-center">+86-13771951585</td>
-                    <td class="text-left">hu0411@msn.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">陳俊安</td>
-                    <td class="text-left">Chen, Chun-An (Kinson)</td>
-                    <td class="text-left">HuaWei</td>
-                    <td class="text-left">Chief Engineer/ Project Leader</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0963639357<br>+86-15601743357</td>
-                    <td class="text-left">East5210@gmail.com</td>
-                </tr>
-                <tr>
-                    <td class="text-center">施元中</td>
-                    <td class="text-left">Shih, Yuan-Chung</td>
-                    <td class="text-left">Lihsing Co., Ltd.</td>
-                    <td class="text-left">Vice President</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0933136751</td>
-                    <td class="text-left">lstonyshih@gmail.com<br>114e.tony.shih@emba.ncu.edu.tw</td>
-                </tr>
-                <tr>
-                    <td class="bg-gray">團員</td>
-                    <td class="text-center">高長翰</td>
-                    <td class="text-left">Kao, Chang-Han (Bill)</td>
-                    <td class="text-left">National Chin-Yi University of Technology</td>
-                    <td class="text-left">Adjunct Lecturer</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">0919150480</td>
-                    <td class="text-left">billkao.ncu@gmail.com</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="page-title-wrap">
+      <h1 class="page-title">Members</h1>
     </div>
-</div>
+    <div class="page-tip">星泰團成員名單與所屬公司簡介</div>
 
+    <div class="section-title leader">專案執行長 (1位)</div>
+    <div class="job-def leader"><i class="fa-solid fa-list-check"></i>整體專案統籌與決策、里程碑控管、召開與主持每週會議、對外與對院主管溝通窗口、人事管理</div>
+    <div class="person-list">
+
+      <div class="person-card item-leader">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">姜玫君</span>
+          <span class="person-en">Chiang, Mei-Chun (Coco)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Financial Controller, APAC</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Legrand — Power and Access Data Power &amp; Control</div>
+          <div class="company-intro">法國跨國企業，全球電氣與數位建築基礎設施解決方案領導廠商，起源於1860年代，總部位於里摩日。產品涵蓋配線裝置、電源分配、樓宇自動化、資料中心基礎設施及智慧家庭系統，行銷全球逾180個國家，為財星全球500大企業之一。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title deputy">副執行長 (1位)</div>
+    <div class="job-def deputy"><i class="fa-solid fa-list-check"></i>日常進度追蹤與提醒、跨組協調與問題排除、會議與資訊整合、代理執行長</div>
+    <div class="person-list">
+
+      <div class="person-card item-deputy">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">廖聰志</span>
+          <span class="person-en">Liao, Tsung-Chih (Paul)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>QA Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Delta Electronics, Inc.</div>
+          <div class="company-intro">台達電子成立於1971年，總部位於台灣，為全球電源管理與散熱解決方案領導廠商。產品線涵蓋電源供應器、工業自動化、電動車充電設備、資料中心基礎設施及再生能源系統，長年推動節能減碳與淨零轉型，為全球ESG典範企業之一。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title pr">聯繫公關組 (4位)</div>
+    <div class="job-def pr"><i class="fa-solid fa-list-check"></i>聯繫新加坡與泰國參訪單位、確認行程內容與時程 (帶隊老師協助)</div>
+    <div class="person-list">
+
+      <div class="person-card item-pr">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">章廣榮</span>
+          <span class="person-en">Chang, Kuang-Jung (Luigi)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Sr. Director of Business Development and Product Engineering</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>ScaleFlux, Inc.</div>
+          <div class="company-intro">2014年成立於美國矽谷，專精運算儲存（Computational Storage）技術，將運算能力整合於SSD控制器晶片中，提供NVMe SSD及CXL記憶體解決方案，協助雲端與資料中心加速AI、大數據等應用效能，並降低儲存總持有成本。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-pr">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">吳懿展</span>
+          <span class="person-en">Wu, Yi-Chan (Jordan)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Taiwan Country Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Powerquark, Inc</div>
+          <div class="company-intro">總部位於美國加州庫比蒂諾，為類比與嵌入式晶片設計公司，專注DC-DC轉換器、GaN快充晶片、電源管理與電池保護IC等產品，應用涵蓋消費性電子、快充配件、車用與工業領域，致力提供高效整合電源解決方案。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-pr">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">張肇驛</span>
+          <span class="person-en">Chang, Chao-Yi (Austin)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>General Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Chernger Technology Co., Ltd.</div>
+          <div class="company-intro">晟格科技成立於1999年，總部位於台北，專精自動光學檢測（AOI）設備、機器視覺檢測、光學選別機與分選設備，產品應用於半導體與電子製造業之微米至奈米級瑕疵檢測，協助客戶提升製程良率與品質管控。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-pr">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">門志漢</span>
+          <span class="person-en">Men, Chih-Han (Andrew)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Sourcing &amp; Supply Chain Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>ficonTEC Service GmbH</div>
+          <div class="company-intro">成立於2001年，總部位於德國不來梅附近的阿亨，為光電及光子元件自動化組裝與測試設備領導廠商。產品應用於光通訊模組、5G基礎設施、光達（LiDAR）系統及光子積體電路，全球已安裝逾千台設備，服務歐美亞多國客戶。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title finance">旅行財務組 (3位)</div>
+    <div class="job-def finance"><i class="fa-solid fa-list-check"></i>旅行社對接、完成報價比較表、保險與收費管理等</div>
+    <div class="person-list">
+
+      <div class="person-card item-finance">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">郭天立</span>
+          <span class="person-en">Kuo, Tien-Li (A-Li)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Marketing Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Si Wei Dental Group</div>
+          <div class="company-intro">為口腔醫療服務集團，經營多家連鎖牙醫診所，提供一般牙科、齒顎矯正、植牙及美學牙醫等整合性醫療服務，並致力於品牌行銷推廣與病患服務體驗提升，於區域牙醫市場具一定知名度。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-finance">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">鄭竣升</span>
+          <span class="person-en">Cheng, Chun-Sheng</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>SA Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>UP Scientech Materials Corp.</div>
+          <div class="company-intro">優頻科技於1990年成立，總部位於桃園觀音，為耐磨複合材料製造商，主要產品包括堆焊耐磨鋼板、UP管、立式磨輥及輥壓機等零組件，應用於水泥、電力、礦業等重工業設備維護，並於中國蘇州設有生產基地，服務全球客戶。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-finance">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">簡雅惠</span>
+          <span class="person-en">Chien, Ya-Hui</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Director, General Management Office</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Donpon Precision Inc.</div>
+          <div class="company-intro">東浦精密於1995年成立，為台灣上市公司（股票代號3290），專精塑膠模具設計、射出成型、烤漆印刷與組裝之一站式服務，並跨足車用電子產品研發生產，產品應用於相機、筆電、手機及汽車電子等領域，於中國與泰國設有生產基地。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title admin">行政支援組 (3位)</div>
+    <div class="job-def admin"><i class="fa-solid fa-list-check"></i>文宣製作、行程文件準備，行前說明會、內部行政協調、造訪單位資料或禮物準備等</div>
+    <div class="person-list">
+
+      <div class="person-card item-admin">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">曾世翰</span>
+          <span class="person-en">Tseng, Shih-Han</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Deputy Director, Facility Div.</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Wafer Works Corporation</div>
+          <div class="company-intro">合晶科技創立於1986年，總部位於台灣龍潭科學園區，為全球前十大半導體矽晶圓材料供應商，專精重摻雜低阻值矽晶圓製造，於台灣與中國大陸設有六座專業製造中心，並在歐美設有服務據點，長期推動企業永續發展。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-admin">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">鍾曜宇</span>
+          <span class="person-en">Chung, Yao-Yu (Ken)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Developer Testing Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Inventec</div>
+          <div class="company-intro">英業達成立於1975年，總部位於台北，為全球知名資訊科技製造服務大廠，產品涵蓋筆記型電腦、伺服器、智慧家庭裝置及車用電子等，並積極布局AI伺服器與電動車相關產業，為台灣重要電子代工集團之一。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-admin">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">陳玠錳</span>
+          <span class="person-en">Chen, Chieh-Meng</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Brand Marketing Project Manager</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>BellWether Electronic Corp.</div>
+          <div class="company-intro">貝爾威勒2007年成立，從事連接器、線材、POGO Pin、FPCA及金屬射出成型等電子零組件之設計、製造與銷售，客戶涵蓋國際一線科技大廠，產品應用於伺服器、車用電子、筆電、手機及穿戴裝置等領域，屢獲產業創新設計獎項肯定。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title record">活動紀錄組 (3位)</div>
+    <div class="job-def record"><i class="fa-solid fa-list-check"></i>活動拍攝與文字紀錄、社群分享、新聞稿與成果整理等</div>
+    <div class="person-list">
+
+      <div class="person-card item-record">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">胡書瑋</span>
+          <span class="person-en">Hu, Shu-Wei</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Director</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Ion Applied Shenzhen Co., Ltd.</div>
+          <div class="company-intro">艾歐離子應用為位於中國深圳之科技公司，從事離子應用相關技術之研發、生產與銷售業務，服務對象涵蓋電子製造相關產業，致力提供客製化技術應用解決方案。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-record">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">陳俊安</span>
+          <span class="person-en">Chen, Chun-An (Kinson)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Chief Engineer / Project Leader</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>HuaWei</div>
+          <div class="company-intro">華為技術成立於1987年，總部位於中國深圳，為全球領先的資通訊科技（ICT）解決方案供應商，業務涵蓋電信網路設備、企業解決方案、消費性電子及雲端運算等領域，長期投入5G、AI與晶片研發，為全球規模最大的電信設備商之一。</div>
+        </div>
+      </div>
+
+      <div class="person-card item-record">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">施元中</span>
+          <span class="person-en">Shih, Yuan-Chung</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Vice President</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>Lihsing Co., Ltd.</div>
+          <div class="company-intro">逢開有限公司為專業製造與貿易服務公司，致力提供優質產品及客製化服務予國內外客戶，長期深耕相關產業並建立穩定之供應鏈與客戶關係。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title member">團員</div>
+    <div class="person-list">
+
+      <div class="person-card item-member">
+        <div class="person-header">
+          <i class="fa-solid fa-user"></i>
+          <span class="person-name">高長翰</span>
+          <span class="person-en">Kao, Chang-Han (Bill)</span>
+        </div>
+        <div class="person-role"><i class="fa-solid fa-id-badge"></i>Adjunct Lecturer</div>
+        <div class="company-block">
+          <div class="company-name"><i class="fa-solid fa-building"></i>National Chin-Yi University of Technology</div>
+          <div class="company-intro">創立於1971年，原為私立勤益工業專科學校，1992年改制為國立勤益工商專科學校，2007年升格為國立勤益科技大學。校址位於台中大坑，設有工程、資訊、管理及人文等學院，長期深耕技職教育與產學合作，培育科技與管理人才。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>
