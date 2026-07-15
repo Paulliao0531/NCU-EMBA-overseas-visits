@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, user-scalable=yes">
+    <title>樟宜機場接機集合指引</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft JhengHei", sans-serif;
+            background: linear-gradient(135deg, #f0f4ff 0%, #dce8ff 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+        /* ── 頁首橫幅 ── */
+        .page-header {
+            background: linear-gradient(135deg, #1565c0 0%, #1976d2 60%, #42a5f5 100%);
+            padding: 20px 20px 20px 72px;
+            box-shadow: 0 3px 12px rgba(21,101,192,0.35);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .title {
+            font-size: clamp(15pt, 4.5vw, 20pt);
+            color: #ffffff;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .subtitle-line {
+            color: #e3f0ff;
+            font-size: 10pt;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+        /* ── 懸浮首頁按鈕 ── */
+        .home-link {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+        }
+        .home-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+        .home-link svg {
+            width: 26px;
+            height: 26px;
+            fill: #1565c0;
+            transition: fill 0.2s ease;
+        }
+        .home-link:hover svg {
+            fill: #0076cc;
+        }
+        /* ── 主內容區 ── */
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+        /* ── 卡片 ── */
+        .section-card {
+            margin-bottom: 24px;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(21,101,192,0.10), 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .section-card:last-child {
+            margin-bottom: 0;
+        }
+        /* ── 卡片標題列 ── */
+        .section-header {
+            background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+            color: #ffffff;
+            font-size: 20pt;
+            font-weight: 800;
+            padding: 12px 18px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-header .icon {
+            font-size: 16pt;
+            opacity: 0.9;
+        }
+        .section-body {
+            padding: 18px 18px 22px;
+        }
+        /* ── 出口指示卡片 ── */
+        .exit-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #e8f0fe;
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            font-size: 20pt;
+            color: #0d2b5e;
+            line-height: 1.6;
+        }
+        .exit-note:last-of-type {
+            margin-bottom: 0;
+        }
+        .exit-note .arrow-badge {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #1565c0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14pt;
+        }
+        .exit-note b {
+            color: #0d47a1;
+        }
+        .meet-box {
+            margin-top: 14px;
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border: 1px solid #ffca28;
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20pt;
+            font-weight: 700;
+            color: #8a5a00;
+        }
+        .meet-box .pin {
+            font-size: 20pt;
+            flex-shrink: 0;
+        }
+        /* ── SVG 平面圖 ── */
+        .map-wrap {
+            margin: 16px 0 4px;
+            background: #f4f8ff;
+            border-radius: 12px;
+            padding: 10px;
+        }
+        .map-wrap svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .map-caption {
+            text-align: center;
+            font-size: 20pt;
+            color: #5a7bab;
+            margin-top: 6px;
+        }
+        /* ── 溫馨提醒列表 ── */
+        .tip-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .tip-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .tip-num {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1565c0, #42a5f5);
+            color: #fff;
+            font-weight: 800;
+            font-size: 12.5pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tip-text {
+            font-size: 20pt;
+            line-height: 1.65;
+            color: #16223f;
+            padding-top: 2px;
+        }
+        .tip-text a {
+            color: #1565c0;
+            font-weight: 700;
+            word-break: break-all;
+        }
+        .tip-text .warn {
+            color: #c62828;
+            font-weight: 800;
+        }
+        .tip-divider {
+            border: none;
+            border-top: 1px dashed #c7d9f5;
+            margin: 4px 0;
+        }
+        /* ── 緊急聯絡卡片 ── */
+        .contact-grid {
+            margin-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .contact-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: linear-gradient(135deg, #e8f0fe 0%, #d3e4fd 100%);
+            border-radius: 12px;
+            padding: 12px 16px;
+            text-decoration: none;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .contact-role {
+            font-size: 20pt;
+            color: #4c6c9c;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .contact-name {
+            font-size: 20pt;
+            color: #0d2b5e;
+            font-weight: 800;
+        }
+        .contact-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 16pt;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .action-btn.call {
+            background: #1565c0;
+        }
+        .action-btn.wa {
+            background: #25d366;
+        }
+        /* 捲動提示（僅行動端顯示）*/
+        @media (max-width: 600px) {
+            .page-header { padding: 16px 16px 16px 64px; }
+            .home-link { top: 10px; left: 10px; width: 44px; height: 44px; }
+            .home-link svg { width: 22px; height: 22px; }
+            .tip-text { font-size: 12.5t; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 懸浮首頁按鈕 -->
+    <a href="index.html" class="home-link" title="返回首頁">
+        <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+    <!-- 頁首橫幅 -->
+    <div class="page-header">
+        <div class="title">樟宜機場接機集合指引</div>
+        <div class="subtitle-line">Changi Airport Terminal 3｜接機集合說明</div>
+    </div>
+    <div class="page-container">
+
+        <!-- 機場出口與集合點 -->
+        <div class="section-card">
+            <div class="section-header"><span class="icon">🛬</span>Changi Airport Terminal 3 樟宜機場 T3</div>
+            <div class="section-body">
+                <div class="exit-note">
+                    <span class="arrow-badge">←</span>
+                    <span>行李帶區 <b>Belt 41-44</b> 的玻璃門出口 &gt; 出來<b>轉左</b></span>
+                </div>
+                <div class="exit-note">
+                    <span class="arrow-badge">→</span>
+                    <span>行李帶區 <b>Belt 45-48</b> 的玻璃門出口 &gt; 出來<b>轉右</b></span>
+                </div>
+
+                <!-- 平面圖 -->
+                <div class="map-wrap">
+                    <svg viewBox="0 0 400 330" xmlns="http://www.w3.org/2000/svg">
+                        <!-- 航廈外框 -->
+                        <rect x="10" y="10" width="380" height="130" rx="12" fill="#ffffff" stroke="#90caf9" stroke-width="2"/>
+
+                        <!-- 行李帶區標籤（涵蓋 41-44 與 45-48 兩區） -->
+                        <text x="200" y="38" text-anchor="middle" font-size="22" fill="#5a7bab" font-weight="700">行李帶區</text>
+                        <path d="M30,46 L30,50 L370,50 L370,46" fill="none" stroke="#90b4dd" stroke-width="1.5"/>
+
+                        <!-- 行李帶 41-44 -->
+                        <g>
+                            <rect x="25" y="58" width="165" height="62" rx="8" fill="#bbdefb" stroke="#64b5f6" stroke-width="2"/>
+                            <text x="107" y="99" text-anchor="middle" font-size="30" fill="#0d2b5e" font-weight="800">41-44</text>
+                        </g>
+                        <!-- 行李帶 45-48 -->
+                        <g>
+                            <rect x="205" y="58" width="165" height="62" rx="8" fill="#bbdefb" stroke="#64b5f6" stroke-width="2"/>
+                            <text x="287" y="99" text-anchor="middle" font-size="30" fill="#0d2b5e" font-weight="800">45-48</text>
+                        </g>
+
+                        <defs>
+                            <marker id="arrowBlue" markerWidth="14" markerHeight="14" refX="14" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+                                <path d="M0,0 L14,7 L0,14 Z" fill="#1565c0"/>
+                            </marker>
+                        </defs>
+
+                        <!-- 出口標示 -->
+                        <text x="107" y="163" text-anchor="middle" font-size="26" fill="#e53935" font-weight="800">出口</text>
+                        <text x="287" y="163" text-anchor="middle" font-size="26" fill="#e53935" font-weight="800">出口</text>
+
+                        <!-- 左側出口 → 詢問處：直角轉折路徑 -->
+                        <path d="M107,180 L107,272 L154,272" fill="none" stroke="#1565c0" stroke-width="5"
+                              stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowBlue)"/>
+
+                        <!-- 右側出口 → 詢問處：直角轉折路徑 -->
+                        <path d="M287,180 L287,272 L246,272" fill="none" stroke="#1565c0" stroke-width="5"
+                              stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowBlue)"/>
+
+                        <!-- 匯合點 -->
+                        <circle cx="200" cy="272" r="46" fill="#ffca28" stroke="#8a5a00" stroke-width="3"/>
+                        <text x="200" y="281" text-anchor="middle" font-size="26" fill="#5a3a00" font-weight="800">詢問處</text>
+                    </svg>
+                    <div class="map-caption">兩側出口出來後，前往中間的詢問處櫃檯匯合</div>
+                </div>
+
+                <div class="meet-box">
+                    <span class="pin">📍</span>
+                    <span>匯合點：中間的詢問處櫃檯（Information Counter）<br>請在櫃檯前與司機匯合</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 溫馨提醒 -->
+        <div class="section-card">
+            <div class="section-header"><span class="icon">🔔</span>溫馨提醒</div>
+            <div class="section-body">
+                <ul class="tip-list">
+                    <li class="tip-item">
+                        <span class="tip-num">1</span>
+                        <span class="tip-text">飛機、船班靠岸後請打開手機並連結網路，方便司機緊急聯繫</span>
+                    </li>
+                    <hr class="tip-divider">
+                    <li class="tip-item">
+                        <span class="tip-num">2</span>
+                        <span class="tip-text">新加坡當地習慣使用 <b>WhatsApp</b>，建議客人先行下載 APP，只要有網路 &amp; 將電話加入通訊錄之後，互相以 WhatsApp 通話無需付電話費</span>
+                    </li>
+                    <hr class="tip-divider">
+                    <li class="tip-item">
+                        <span class="tip-num">3</span>
+                        <span class="tip-text">司機將在班機降落後 <b>30分鐘</b> 到達集合點等候／郵輪則按約定接船時間在集合點等候。<br>
+                            <span class="warn">請注意接機司機等待時間是約定接機時間起30分鐘內，超過時間視同自願放棄接機服務，不退費</span>
+                        </span>
+                    </li>
+                    <hr class="tip-divider">
+                    <li class="tip-item">
+                        <span class="tip-num">4</span>
+                        <span class="tip-text">如果您提前完成通關手續，提前抵達會合點，未見到接機（接船）司機，煩請稍候片刻！</span>
+                    </li>
+                    <hr class="tip-divider">
+                    <li class="tip-item">
+                        <span class="tip-num">5</span>
+                        <span class="tip-text">若超過約定時間未見到司機，請聯繫外站緊急聯絡人：</span>
+                    </li>
+                </ul>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-info">
+                            <span class="contact-role">司機老大 · DRIVER</span>
+                            <span class="contact-name">KEVIN　+65 8129 8109</span>
+                        </div>
+                        <div class="contact-actions">
+                            <a class="action-btn call" href="tel:+6581298109" title="撥打電話">📞</a>
+                            <a class="action-btn wa" href="https://wa.me/6581298109" target="_blank" rel="noopener" title="WhatsApp">💬</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-info">
+                            <span class="contact-role">公司聯絡 · OFFICE</span>
+                            <span class="contact-name">MS. AME　+65 9109 1585</span>
+                        </div>
+                        <div class="contact-actions">
+                            <a class="action-btn call" href="tel:+6591091585" title="撥打電話">📞</a>
+                            <a class="action-btn wa" href="https://wa.me/6591091585" target="_blank" rel="noopener" title="WhatsApp">💬</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
