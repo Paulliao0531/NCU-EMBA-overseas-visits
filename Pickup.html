@@ -317,45 +317,45 @@
                 <!-- 平面圖 -->
                 <div class="map-wrap">
                     <svg viewBox="0 0 400 330" xmlns="http://www.w3.org/2000/svg">
-                        <!-- 航廈外框 -->
-                        <rect x="10" y="10" width="380" height="130" rx="12" fill="#ffffff" stroke="#90caf9" stroke-width="2"/>
-
-                        <!-- 行李帶區標籤（涵蓋 41-44 與 45-48 兩區） -->
-                        <text x="200" y="38" text-anchor="middle" font-size="22" fill="#5a7bab" font-weight="700">行李帶區</text>
-                        <path d="M30,46 L30,50 L370,50 L370,46" fill="none" stroke="#90b4dd" stroke-width="1.5"/>
-
-                        <!-- 行李帶 41-44 -->
-                        <g>
-                            <rect x="25" y="58" width="165" height="62" rx="8" fill="#bbdefb" stroke="#64b5f6" stroke-width="2"/>
-                            <text x="107" y="99" text-anchor="middle" font-size="30" fill="#0d2b5e" font-weight="800">41-44</text>
-                        </g>
-                        <!-- 行李帶 45-48 -->
-                        <g>
-                            <rect x="205" y="58" width="165" height="62" rx="8" fill="#bbdefb" stroke="#64b5f6" stroke-width="2"/>
-                            <text x="287" y="99" text-anchor="middle" font-size="30" fill="#0d2b5e" font-weight="800">45-48</text>
-                        </g>
-
                         <defs>
                             <marker id="arrowBlue" markerWidth="14" markerHeight="14" refX="14" refY="7" orient="auto" markerUnits="userSpaceOnUse">
                                 <path d="M0,0 L14,7 L0,14 Z" fill="#1565c0"/>
                             </marker>
                         </defs>
 
+                        <!-- 匯合點：詢問處（移至上方） -->
+                        <circle cx="200" cy="58" r="46" fill="#ffca28" stroke="#8a5a00" stroke-width="3"/>
+                        <text x="200" y="58" text-anchor="middle" dominant-baseline="central" font-size="26" fill="#5a3a00" font-weight="800">詢問處</text>
+
+                        <!-- 左側出口 → 詢問處：直角轉折路徑（往上） -->
+                        <path d="M107,150 L107,58 L154,58" fill="none" stroke="#1565c0" stroke-width="5"
+                              stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowBlue)"/>
+
+                        <!-- 右側出口 → 詢問處：直角轉折路徑（往上） -->
+                        <path d="M287,150 L287,58 L246,58" fill="none" stroke="#1565c0" stroke-width="5"
+                              stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowBlue)"/>
+
                         <!-- 出口標示 -->
-                        <text x="107" y="163" text-anchor="middle" font-size="26" fill="#e53935" font-weight="800">出口</text>
-                        <text x="287" y="163" text-anchor="middle" font-size="26" fill="#e53935" font-weight="800">出口</text>
+                        <text x="107" y="167" text-anchor="middle" font-size="26" fill="#e53935" font-weight="800">出口</text>
+                        <text x="287" y="167" text-anchor="middle" font-size="26" fill="#e53935" font-weight="800">出口</text>
 
-                        <!-- 左側出口 → 詢問處：直角轉折路徑 -->
-                        <path d="M107,180 L107,272 L154,272" fill="none" stroke="#1565c0" stroke-width="5"
-                              stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowBlue)"/>
+                        <!-- 航廈外框（移至下方） -->
+                        <rect x="10" y="190" width="380" height="130" rx="12" fill="#ffffff" stroke="#90caf9" stroke-width="2"/>
 
-                        <!-- 右側出口 → 詢問處：直角轉折路徑 -->
-                        <path d="M287,180 L287,272 L246,272" fill="none" stroke="#1565c0" stroke-width="5"
-                              stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowBlue)"/>
+                        <!-- 行李帶區標籤（涵蓋 41-44 與 45-48 兩區） -->
+                        <text x="200" y="218" text-anchor="middle" font-size="22" fill="#5a7bab" font-weight="700">行李帶區</text>
+                        <path d="M30,226 L30,230 L370,230 L370,226" fill="none" stroke="#90b4dd" stroke-width="1.5"/>
 
-                        <!-- 匯合點 -->
-                        <circle cx="200" cy="272" r="46" fill="#ffca28" stroke="#8a5a00" stroke-width="3"/>
-                        <text x="200" y="281" text-anchor="middle" font-size="26" fill="#5a3a00" font-weight="800">詢問處</text>
+                        <!-- 行李帶 45-48 -->
+                        <g>
+                            <rect x="25" y="238" width="165" height="62" rx="8" fill="#bbdefb" stroke="#64b5f6" stroke-width="2"/>
+                            <text x="107" y="279" text-anchor="middle" font-size="30" fill="#0d2b5e" font-weight="800">45-48</text>
+                        </g>
+                        <!-- 行李帶 41-44 -->
+                        <g>
+                            <rect x="205" y="238" width="165" height="62" rx="8" fill="#bbdefb" stroke="#64b5f6" stroke-width="2"/>
+                            <text x="287" y="279" text-anchor="middle" font-size="30" fill="#0d2b5e" font-weight="800">41-44</text>
+                        </g>
                     </svg>
                     <div class="map-caption">兩側出口出來後，前往中間的詢問處櫃檯匯合</div>
                 </div>
